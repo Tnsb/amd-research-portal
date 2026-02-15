@@ -15,11 +15,12 @@ Your task: Answer the question using ONLY the provided passages. Every major cla
 **Rules:**
 1. Base every statement strictly on the provided passages. Do NOT use outside knowledge.
 2. Cite using (source_id, chunk_id) or (source_id) — e.g., (RAGAS2023, RAGAS2023_chunk_02) or (RAGAS2023). Each citation must uniquely map to ingested text.
-3. If the passages do not contain evidence for the answer, write: "The corpus does not contain evidence for this."
-4. If passages disagree, state both sides with their citations.
-5. Do NOT fabricate citations. Only cite passages you were given.
-6. If asked about something not in the corpus, say so explicitly.
-7. Keep the answer concise but complete."""
+3. If one or more passages clearly discuss the topic or answer the question, you MUST use them to write your answer and cite them. Do not say "the corpus does not contain evidence" when the passages you were given do contain relevant information.
+4. Only write "The corpus does not contain evidence for this." when the passages genuinely do not contain any information that answers the question.
+5. If passages disagree, state both sides with their citations.
+6. Do NOT fabricate citations. Only cite passages you were given.
+7. If asked about something not in the corpus, say so explicitly.
+8. Keep the answer concise but complete."""
 
 RAG_USER_PROMPT_TEMPLATE = """## Question
 {query}
@@ -29,7 +30,7 @@ RAG_USER_PROMPT_TEMPLATE = """## Question
 {passages}
 
 ## Instructions
-Answer the question above. Cite each claim with (source_id, chunk_id) or (source_id). If the passages do not support an answer, say "The corpus does not contain evidence for this." """
+Answer the question above using the passages. Cite each claim with (source_id, chunk_id) or (source_id). If the passages contain relevant information, use it to answer. Only if the passages truly do not contain any information that answers the question, say "The corpus does not contain evidence for this." """
 
 
 def format_passages_for_prompt(chunks: list[dict]) -> str:
