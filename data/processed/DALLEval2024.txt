@@ -1,0 +1,1655 @@
+arXiv:2306.06504v1 [math.DG] 10 Jun 2023
+Hadamard-type variation formulae for the eigenvalues of a
+class of second-order elliptic operators and its applications
+C. L. Cunha 1, J. N. Gomes 2 and M. A. M. Marrocos 3
+Abstract. We use variational methods to derive Hadamard-type formula e
+for the eigenvalues of a class of elliptic operators on a comp act Riemannian
+manifold M. We then apply the latter in the following context. Consider a
+family of elliptic operators which is parametrized by eithe r the set of all Cr-
+Riemannian metrics on M or the set of all Cr-diﬀeomorphisms on a domain
+into M. In either case we prove that if a subset of the parametrizati ons set
+yields a simple spectrum of the operator, then it is necessar ily a generic subset.
+We also analyse the behavior of the eigenvalues when the metr ic evolves along
+the Ricci ﬂow on a closed Riemannian manifold, and we prove, u nder a suitable
+hypothesis, that they increase.
+1. Introduction
+Let (Mn,g) be an n-dimensional compact Riemannian manifold with boundary
+∂M, and let L be the class of elliptic diﬀerential operators given by
+L f := div η(T∇f) := div( T∇f) − ⟨∇η,T ∇f⟩, (1.1)
+where T is a symmetric positive deﬁnite (1 ,1)-tensor on Mn and f,η ∈ C∞(M).
+Here, div stands for the divergence of smooth vector ﬁelds and ∇ for the gradient
+of smooth functions. We allow both T and η depend on the metric g = ⟨,⟩.
+This class of operators uniﬁes several particular cases that are w ell-studied in the
+literature, e.g., the Laplace-Beltrami operator, the drifted Lapla cian, the Cheng-
+Yau operator, among other geometric operators which naturally a rise in geometric
+analysis. For instance, when T is divergence free, then the operator L is likely to
+have applications in physics, see, e.g., Serre [ 19]. We highlight that Serre's work
+deals with divergence free positive deﬁnite symmetric tensors and ﬂ uid dynamics,
+there we can ﬁnd examples and know where these tensors occur. W e refer the
+reader to Alencar, Neto and Zhou [ 1], Ara´ ujo Filho and Gomes [ 2], Gomes and
+Miranda [ 9] or Navarro [ 18] for more related discussions.
+In this paper, we study the behavior of the spectrum of L by means of
+Hadamard-type variational formulae for its eigenvalues. It is orga nized as follows.
+We give some preliminaries in Section 2 and some general comments on v aria-
+tional formulae in Section 3. In Section 4, we consider the eigenvalue problem for
+the operator Lg with the Dirichlet boundary condition. Theorem 1 deal with the
+2010 Mathematics Subject Classiﬁcation. Primary 47A05, 47A75; Secondary 47A55.
+Key words and phrases. Elliptic operator, Hadamard-type formulas, Eigenvalues.
+2 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+generic simplicity of the eigenvalues of the operator Lg(·) = div η(Tg∇·), where the
+Tg-family satisﬁes the property P. A precise description of this latter property is
+given in Section 5. Taking into account property P, we prove that all eigenvalues of
+Lg are generically simple. The perturbation of the domain case is settled by Propo-
+sition 6 in which the η-dependency on the parameter t is crucial. In Section 6, we
+deal with the generic simplicity of the eigenvalues of the operator Lg with the Neu-
+mann boundary condition. In Section 7, we deal with domain variation considering
+both boundary conditions, Dirichlet and Neumann, and proving that the eigenval-
+ues are generically simple. Especially, Theorem 2 shows that the multip licity of an
+eigenvalue can be reduced by small perturbation of the domain. In S ection 8, we
+deal with extremal metrics. A domain Ω is local minimizer (local maximize r) for
+the kth-eigenvalue µk of L if for any analytic volume-preserving deformation Ω t,
+the function t↦→µk(t) admits a local minimum (local maximum) at t= 0. For the
+Dirichlet Laplacian case, it is known that if a domain is local minimizer (res p. local
+maximizer) for µk with µk > µk−1 (resp. µk < µk+1), then the norm |∂φ/∂ν| of
+the normal derivative of the eigenfunction φof µk is constant (see [ 20]). We prove
+a similar result for L in Theorem 3. In Section 9, we analyze the behavior of the
+eigenvalues of the operator Lg(t) along the Ricci Flow. For instance, we prove a
+monotonicity for one-parameter family of eigenvalues λ(t) of Lg(t) along the Ricci
+ﬂow on a closed homogeneous n-dimensional Riemannian manifold, see Theorem 4.
+We also prove the monotonicity of the eigenvalues of div η(ψ∇u) envolving by the
+Ricci ﬂow on three-dimensional Riemannian manifold having strictly po sitive Ricci
+curvature initially, see Theorem 5. In particular, since the solution t o the Ricci ﬂow
+becomes extinct in ﬁnite time, with additional hypothesis over the fu nction ψ, we
+prove that lim
+t→δ
+λ(t) = ∞, see Theorem 6.
+It is worth mentioning here some of the main articles related to our wo rk.
+Uhlenbeck [21] showed that on a closed Riemannian manifold ( Mn,g) there exists a
+residual subset Γ into Mr for which the spectrum of the Laplace-Beltrami operator
+∆ g is simple, where Mr, 2 ≤ r < ∞, stands for the set of all Cr-Riemannian
+metrics g on Mn.
+Canzani [ 5] considered elliptic, formally self-adjoint, conformally covariant op -
+erator Pg of order macting on smooth sections over a closed Riemannian manifold
+(Mn,g), and proved, under special conditions over the eigenspaces of Pg, that the
+set of all functions f ∈ C∞(M) for which Pef g has only simple nonzero eigenvalues
+is a residual subset of C∞(M).
+El Souﬁ and Ilias [ 20] established necessary and suﬃcient conditions for a do-
+main to be critical, locally minimizing or locally maximizing the kth-eigenvalue of
+the Laplace-Beltrami operator. As an application they obtained a c haracteriza-
+tion for critical domains of the trace of the heat kernel under Diric hlet boundary
+condition.
+Cao, Hou and Ling [ 6] showed a monotonicity Hadamard-type formula for the
+ﬁrst eigenvalue of −∆ + aR (0 < a <1/2) on a closed surface with nonnega-
+tive scalar curvature R under the Ricci ﬂow. Recall that, this latter ﬂow was
+introduced by Hamilton [ 11] to study the geometry of positive Ricci curvature on
+three-dimensional closed Riemannian manifolds. Currently, the Ricc i ﬂow stands
+as a powerful tool in studying the geometry and topology for lower dimensional
+manifolds.
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 3
+2. Preliminaries
+Let dm = e−ηdM be the weighted volume form on ( Mn,g), d µ = e−ηdσ be
+the weighted area form induced on ∂M, where dM is the Riemannian volume form
+of g = ⟨,⟩, and η : M → R be a smooth function. If T is a (0 ,2)-tensor on Mn,
+then we can associate it with a unique (1 ,1)-tensor, which will also be denoted T,
+according to ⟨TX,Y ⟩ = T(X,Y ) for all X,Y ∈ X(M). Thus, for an (1 ,1)-tensor
+S, we have
+ST(X,Y ) = ⟨STX,Y ⟩ = S(TX,Y ).
+Recall that the divergence of an (1 ,1)-tensor T is the (0 ,1)-tensor
+(divT)(v)(p) = tr g
+(
+w↦→(∇wT)(v)(p)
+)
+,
+for p∈ Mn and v,w ∈ TpM. Recall also that the inner product induced by gon the
+space of (0 ,2)-tensors on Mn is ⟨T,S⟩ = tr g
+(
+TS∗)
+, where S∗ denotes the adjoint
+tensor of S. Clearly, we have in a local coordinates
+⟨T,S⟩ = gikgjl TijSkl.
+In this way, if ∇2f = ∇dfstands for the Hessian of f, then ∆ gf = ⟨∇2f,g⟩. Now,
+we deﬁne the ( η,Tg)-divergence operator
+Lgf = div( Tg∇f) − Tg(∇η,∇f) = eηdiv(e−ηT∇f),
+where Tg is a symmetric positive deﬁnite (0 ,2)-tensor which depends smoothly on
+g.
+If we consider the drifted divergence operator div ηX := div X− ⟨∇η,X⟩, then
+the ( η,Tg)-divergence operator takes the form Lgf = div η(T∇f), moreover, ap-
+plying the divergence theorem, one has∫
+M
+divη(TX)dm =
+∫
+∂M
+⟨TX,ν ⟩dµ,
+where ν is the outward pointing unit normal vector ﬁeld along ∂M.
+Since div η(T(fX)) = fdivη(TX) + ⟨∇f,TX ⟩ for f,ℓ ∈ C∞(M), we obtain
+∫
+M
+ℓdivη(T∇f)dm = −
+∫
+M
+Tg(∇ℓ,∇f)dm +
+∫
+∂M
+ℓTg(∇f,ν)dµ (2.1)
+and the following formulae hold
+Lg(fℓ) = fLgℓ+ ℓLgf + 2Tg(∇f,∇ℓ).
+It follows from (2.1) that ( η,Tg)-divergence operator is a formally self-adjoint
+operator in the Hilbert space of all real functions f ∈ L2(M,dm) that vanish (or
+Tg(∇f,ν) = 0) on ∂M in the sense of the trace. Thus, the Dirichlet (or Tg-
+Neumann) boundary eigenvalue problem for Lg has real and discrete spectrum
+0 = µ0(g) <µ1(g) ≤ µ2(g) ≤ · · · ≤ µk(g) ≤ · · · → ∞ ,
+where each µi(g) is repeated according to its multiplicity. Moreover, since Mn is
+compact there exist two positive constants α and β, such that
+0 <α|Y|2 ≤ Tg(Y,Y ) ≤ β|Y|2,
+for all Y ∈ X(M). Now, as Lg is a closed operator, we can use perturbation theory
+for linear operators as in Kato [ 14].
+Let Sr(M) be the Banach spaces of Cr-symmetric (0 ,2)-tensors on Mn, and
+let Mr be the Banach spaces of Cr-Riemannian metrics on Mn, 2 ≤ r <∞. A
+4 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+subset of Mr is called residual if it contains a countable intersection of open dense
+sets. A property of metrics in Mr is called generic if it holds on a residual subset.
+3. Variation formulae by means of the metrics
+We start by considering t ↦→g(t) a smooth variation of an initial metric g.
+Let dm t = e−ηdMt be the weighted volume form of g(t), and d µt = e−ηdσt be
+the weighted area form induced on ∂M. Denoting by H the (0 ,2)-tensor given
+by Hij = d
+dt
+⏐
+⏐
+t=0gij(t) and writing h = gijHij, we get d
+dt dmt = 1
+2 hdm. Similarly,
+if ˜H stands for the (0 ,2)-tensor induced by the derivative of g(t) restricted to
+∂M, and ˜h denotes its trace, then d
+dt dµt = 1
+˜hdµ. Since there is no danger of
+confusion, we also write ⟨,⟩ for the metric g(t). Thus, for each X ∈ X(M), we can
+write Xt = gij(t)xi(t)∂j , where xi(t) = ⟨X,∂i⟩, and we deﬁne ˙X := gijx′
+i∂j , where
+x′
+i = d
+dt xi(t).
+Now, we consider t ↦→Tg(t) =: Tt to be a smooth variation of the initial
+symmetric (0 ,2)-tensor T = Tg. Then, we obtain the identity
+d
+dtTt(Xt,Yt) = T( ˙X,Y ) + T(X, ˙Y) + HT (X,Y ), (3.1)
+where
+HT := −(TH + HT) + T′ and T ′(∂i,∂j ) = d
+dtTt(∂i,∂j ) = ( Tt)′
+ij .
+Indeed, a straightforward computation gives us
+Tt(Xt,Yt) = gij(t)gkl(t)xi(t)yk(t)(Tt)jl and d
+dtgij(t) = −gir(t)gjs (t)Hrs(t).
+Hence
+d
+dtTt(Xt,Yt) = gijgklx′
+i(t)yk(t)(Tt)jl + gijgklxi(t)y′
+k(t)(Tt)jl
+− girgjsgklHrsxiyk(Tt)jl − gijgkrglsHrsxiyk(Tt)jl + gijgklxiyk(Tt)′
+jl
+which is enough to obtain (3.1).
+In the special case of gradient vector ﬁelds, we denote by ∇tf the gradient of
+f ∈ C∞(M) computed in the metric g(t). Observe that ∇tf = gij(t)fi∂j , where
+fi = ⟨∇f,∂i⟩ = ∂if does not depend on t. Thus, from (3.1) we have
+d
+dtTt(∇tf,∇tℓ) = HT (∇f,∇ℓ) (3.2)
+for all f,ℓ ∈ C∞(M). In particular,
+d
+dt⟨∇tf,∇tℓ⟩ = −H(∇f,∇ℓ).
+Moreover, if we consider the smooth curve t ↦→ℓ(t) ∈ C∞(M) and the smooth
+vector ﬁeld νt := ∇tf
+|∇tf| , then
+d
+dtTt(νt,∇tℓ(t)) = 1
+2H(ν,ν)T(ν,∇ℓ) + T(ν,∇ℓ′) + HT (ν,∇ℓ). (3.3)
+Indeed, ﬁrst note that νi = 1
+|∇f| ⟨∇f,∂i⟩ implies
+ν′
+i = 1
+1
+|∇f|H(ν,ν)∂if, (3.4)
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 5
+and then
+T( ˙ν,∇ℓ) = 1
+2H(ν,ν)T(ν,∇ℓ).
+Thus, by taking Xt = νt and Yt = ∇tℓ(t) into (3.1), we obtain (3.3).
+Now, we consider a smooth function η : I× M → R and write ˙η := d
+dt
+⏐
+⏐
+t=0η(t)
+to deﬁne
+¯Ltφ:= div( Tt∇φ) − Tt(∇η(t),∇φ) (3.5)
+for all φ∈ C∞(M). We observe that the family of operators ¯Lt is very convenient
+to deal with domain deformations.
+Lemma 1. For all f ∈ C∞
+c (M),
+¯L ′f = div η(HT ∇f) + 1
+2 T(∇h,∇f) − T(∇ ˙η,∇f) (3.6)
+where ¯L ′ := d
+dt
+⏐
+⏐
+t=0
+¯Lt.
+Proof. We begin by considering η to be independent of t. In this case, ¯Lt
+becomes Lt. Integration by parts formula gives us
+∫
+M
+ℓLtfdmt = −
+∫
+M
+Tt(∇ℓ,∇f)dmt
+for ℓ∈ C∞
+c (M). Hence, from equation (3.2), we have at t= 0
+∫
+M
+ℓL ′fdm =
+∫
+M
+(
+− 1
+2ℓhL f − HT (∇f,∇ℓ) − 1
+2hT(∇ℓ,∇f)
+)
+dm. (3.7)
+Observe that
+divη(HT (ℓ∇f)) = ℓdivη(HT ∇f) + HT (∇f,∇ℓ) (3.8)
+and
+divη(ℓhT∇f) = ℓhL f + ℓT(∇h,∇f) + hT(∇ℓ,∇f). (3.9)
+Plugging (3.8) and (3.9) in (3.7), we obtain
+∫
+M
+ℓL ′fdm =
+∫
+M
+ℓ
+( 1
+2 T(∇h,∇f) + div η(HT ∇f)
+)
+dm,
+which is suﬃcient to prove (3.6) for this particular case. For the gen eral case, it is
+enough to note that
+¯L ′f = L ′f − T(∇ ˙η,∇f) (3.10)
+to conclude the proof of the lemma. □
+4. Hadamard-type variation formula
+In what follows, we assume that all manifolds are oriented and those that are
+compact we assume to have boundary. The closed manifolds are ass umed to be
+compact without boundary.
+As in the previous section, we continue by considering t↦→Tg(t) =: Tt a smooth
+variation of the initial symmetric (0 ,2)-tensor T = Tg, and the family of operators
+¯Lt as in (3.5), besides, we denote d¯mt = e−η(t)dMt.
+The next result is an extension of Lemma 3 .15 in Berger [ 4] for the ( η,Tg)-
+divergence operator Lg.
+6 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Lemma 2. Let (M,g) be a compact Riemannian manifold. Consider a real
+analytic one-parameter family of Riemannian metrics g(t) on M with g= g(0). If
+λ is an eigenvalue of multiplicity m> 1 for Lg, then there exist ε> 0, scalars λi
+(i= 1 ,...,m ) and functions φi varying analytically in t, such that, for all |t| < ε
+the following holds:
+(1) λi(0) = λ;
+(2) {φi(t)} is orthonormal in L2(M,d ¯mt);
+(3)
+{ ¯Ltφi(t) = λi(t)φi(t) in M
+φi(t) = 0 on ∂M.
+Proof. Write g(z) and Tz for the extensions of g(t) and Tt to a domain D0 of
+the complex plane C, respectively. So, we can naturally extend the operator ¯Lt to
+¯Lz := ¯La+ib = ¯La + i ¯Lb.
+We observe that the domain D = H2(M) ∩ H1
+0 (M) of ¯Lz do not depend on
+z, and since M is compact, for any two Riemannian metrics g1,g2 the associated
+Sobolev norms ||.||W 1,2 (M,gi) in H2(M) are equivalent. Moreover, the map z↦→ ¯Lzφ
+is holomorphic for z ∈ D0 and for every φ∈ D. Thus, ¯Lz is a holomorphic family
+of type ( A) as in Kato [ 14]. Once the family ¯Lz is not self-adjoint in its domain,
+we can consider the isometry Pt : L2(M,dm) → L2(M,d ¯mt) given by
+Pt(u) =
+√
+det(gij)
+√
+det(gij(t))
+u,
+so that each operator ˜Lt := P−1
+t ◦ ¯Lt ◦ Pt is self-adjoint in L2(M,dm), since∫
+M
+v ˜Ltudm =
+∫
+M
+Pt(v) ¯LtPt(u)d¯mt =
+∫
+M
+Pt(u) ¯LtPt(v)d¯mt
+=
+∫
+M
+P−1
+t Pt(u)P−1
+t ¯LtPt(v)dm =
+∫
+M
+u ˜Ltvdm.
+Evidently, ˜Lt share the same spectrum with ¯Lt. So, applying Theorem 3.9 in [ 14]
+for the operator ˜Lt we obtain the families of eigenvalues and eigenfunctions with
+the required properties. □
+We now consider a smooth map F : Mr → S 2
++(M) that associates to each
+g∈ M r a symmetric positive deﬁnite tensor F(g) = Tg. Naturally, dFg stands for
+the diﬀerential of F at g, and dF∗
+g for the adjoint of dFg. The next proposition
+constitutes the ﬁrst Hadamard-type variational formula.
+Proposition 1. Let (M,g) be a compact Riemannian manifold and g(t) be
+a smooth variation of g. Consider {φi(t)} ⊂ C∞(M) a diﬀerentiable family of
+functions and λi(t) a diﬀerentiable family of real numbers such that λi(0) = λ for
+each i= 1 ,...,m and for all t{ − ¯Ltφi(t) = λi(t)φi(t) in M
+φi(t) = 0 on ∂M,
+with ⟨φi(t),φj (t)⟩L2(M,d ¯mt) = δij . Then, we have
+(λi + λj )′δij =
+∫
+M
+⟨1
+¯L (φiφj )g− 2(T∇φi)♭ ⊗ dφj − 2dφi ⊗ (T∇φj )♭,H
+⟩
+dm
++
+∫
+M
+[
+2⟨dF∗
+g Sym(dφi ⊗ dφj ),H⟩+ T(∇ ˙η,∇(φiφj ))
+]
+dm, (4.1)
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 7
+where (T∇φi)♭ is the 1-form associated to T∇φi induced by g, and Sym is the
+symmetrization operator.
+Proof. Diﬀerentiating with respect to the variable t the equation
+− ¯Ltφi(t) = λi(t)φi(t)
+at t= 0, one has
+− ¯L ′φi − ¯L φ′
+i = λ′
+iφi + λφ′
+i.
+Multiplying by φj and using equation (3.10), we get
+−φj L ′φi + φj T(∇ ˙η,∇φi) − φj ¯L φ′
+i = λ′
+iφj φi − φ′
+i ¯L φj .
+Using integration by parts, we obtain
+λ′
+iδij = −
+∫
+M
+φj L ′φidm +
+∫
+M
+T(∇ ˙η,φj ∇φi)dm.
+So, we deduce from (3.6) that
+(λi + λj )′δij = −
+∫
+M
+φj L ′φidm −
+∫
+M
+φiL ′φj dm +
+∫
+M
+T(∇ ˙η,∇(φj φi))dm
+= −
+∫
+M
+[ 1
+2 T(∇h,∇(φiφj )) + φj divη(HT ∇φi) + φidivη(HT ∇φj )
+]
+dm
++
+∫
+M
+T(∇ ˙η,∇(φj φi))dm.
+Again, integration by parts implies
+(λi + λj )′δij =
+∫
+M
+( h
+¯L (φiφj ) + 2 HT (∇φi,∇φj ) + T(∇ ˙η,∇(φj φi))
+)
+dm. (4.2)
+Now, we compute
+HT (∇φi,∇φj )
+= −T(H∇φi,∇φj ) − H(T∇φi,∇φj ) + ⟨T′,dφi ⊗ dφj ⟩
+= ⟨−(T∇φi)♭ ⊗ dφj − dφi ⊗ (T∇φj )♭,H⟩+ ⟨dFg(H),Sym(dφi ⊗ dφj )⟩
+= ⟨−(T∇φi)♭ ⊗ dφj − dφi ⊗ (T∇φj )♭ + (dFg)∗Sym(dφi ⊗ dφj ),H⟩.
+We substitute this into (4.2) to complete the proof. □
+We point out that Hadamard-type variation formula (4.1) generalize s the Berger
+formula in [ 4]. Moreover, we highlight that equation (4.2) will be useful in diﬀerent
+ways in this paper.
+5. On generic properties of eigenvalues
+Here, we give an application of the Hadamard-type formula that we h ave ob-
+tained in the previous section.
+Let F : Mr → S 2
++(M) be a smooth map that associates to each g ∈ M r
+a symmetric positive deﬁnite tensor F(g) = Tg such that Lg(·) = div η(Tg∇·) is
+uniformly elliptic. We say that the Tg-family satisﬁes the property P if, for all
+g ∈ M r, the tensor Gg = ( n− 4)Tg + 2 dFg(g) satisﬁes either Gg(X,X) > 0 or
+Gg(X,X) <0 or Gg(X,X) ≡ 0 for all X ∈ X(M). For example, if ψ is a positive
+smooth function then Tg = ψg satisﬁes the property P.
+8 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Theorem 1. Let (M,g0) be a compact Riemannian manifold. Consider a
+family of operators Lg(·) = div η(Tg∇·) where the Tg-family satisﬁes the property
+P, and let λ be an eigenvalue of the problem
+{ −Lg0 φ = λφ in M
+φ = 0 on ∂M (5.1)
+with multiplicity m >1. Then given any neighborhood U ⊂ M r of g0 and ǫ >0,
+there exists g ∈ U and a simple eigenvalue λ(g) such that |λ(g) − λ(g0)| < ǫ. In
+particular, the subset Γ ⊂ M r where the eigenvalues of (5.1) are simple, is residual.
+Proof. We will argue by contradiction. Let U ⊂ M r be a neighborhood of
+g0 such that ∀g∈ U with |λ(g) − λ(g0)| <ǫ the multiplicity of λ(g) is m. Consider
+g(t) = g0 + tH, where H is any symmetric (0 ,2)-tensor on ( Mn,g(t)) with λ(t)
+and φ(t) given by Lemma 2 such that
+{ −Ltφi(t) = λ(t)φi(t) in M
+φi(t) = 0 on ∂M.
+By Proposition 1
+λ′δij =
+∫
+M
+⟨1
+4L (φiφj )g0 − Sym((T∇φi)♭ ⊗ dφj ),H⟩dm
++
+∫
+M
+⟨−Sym(dφi ⊗ (T∇φj )♭) + dF∗
+g0 Sym(dφi ⊗ dφj ),H⟩dm.
+If i̸= j, we have
+0 = 1
+4 L (φiφj )g0 − Sym((T∇φi)♭ ⊗ dφj ) − Sym(dφi ⊗ (T∇φj )♭)
++dF∗
+g0 Sym(dφi ⊗ dφj ). (5.2)
+Furthermore, taking traces in equation (5.2), we get
+0 = nL (φiφj ) − 8T(∇φi,∇φj ) + 4 dFg0 (g0)(∇φi,∇φj )
+= −λnφiφj + ((n− 4)T + 2dFg0 (g0))(∇φi,∇φj ). (5.3)
+We so obtain
+λnφiφj = Gg(∇φi,∇φj ). (5.4)
+Motivated by a similar argument given by Uhlenbeck [ 21] we ﬁx p∈ M and consider
+an integral curve α in M such that α(0) = p and α′(s) = Gg∇φi(α(s)). Deﬁning
+β(s) := φj (α(s)), we compute
+β′(s) = ⟨∇φj (α(s)),α′(s)⟩ = Gg(∇φj ,∇φi)(α(s)) = λnφi(α(s))φj (α(s))
+= λnφi(α(s))β(s).
+This gives us that β(s) = cenλ
+∫ s
+0 φi(α(t))dt, where c >0. If Gg is positive, we have
+that φi(α(s)) is increasing in s and then β(s) ր ∞ , which is a contradiction, since
+M is compact. If Gg is negative the argument is analogous. If Gg ≡ 0, then from
+equation (5.3) we get φiφj = 0, hence, by the principle of the unique continuation
+[13] we have that at least one of the eigenfunctions vanishes, which is a gain a
+contradiction. It proves the ﬁrst part of the theorem.
+Now, let Γ m be the set of metrics g∈ M r such that the ﬁrst m eigenvalues of
+Lg with respect to Problem (5.1) are simple. It is known that those eigen values
+depend continually of the metric (see [ 3]), hence Γ m is open in Mr. On the other
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 9
+hand, it follows from the ﬁrst part of the theorem that Γ m is dense in Mr. Since Mr
+is a complete metric space on the topology Cr, the set Γ = ∩∞
+m=1Γ m is residual. □
+6. Tg-Neumann boundary eigenvalue problem
+Our goal in this section is to prove the generic properties for eigenv alues of the
+operator L with the Neumann boundary condition. More speciﬁcally,
+{ (L + λ)φ = 0 in M
+T(∇φ,ν) = 0 on ∂M, (6.1)
+where ν is the outward pointing unit normal vector ﬁeld along ∂M.
+6.1. Hadamard-type variation formulas. Here, we proceed as in Section 4.
+Let us consider a smooth family of Riemannian metrics g(t) and Tt = Tg(t).
+Proposition 2. The following holds for any f,ℓ ∈ C∞(M).
+∫
+M
+ℓ ¯L ′fdm =
+∫
+M
+ℓ
+( 1
+2T(∇h,∇f) + div η(HT ∇f) − T(∇ ˙η,∇f)
+)
+dm,
+where ¯L ′ := d
+dt
+⏐
+⏐
+t=0
+¯Lg(t).
+Proof. As in the proof of Lemma 1 we begin by considering η to be indepen-
+dent of t. In this case, ¯Lt becomes Lt. By integration by parts∫
+M
+ℓLtfdmt = −
+∫
+M
+T(∇f,∇ℓ)dmt +
+∫
+∂M
+ℓT(∇f,νt)dµt.
+Thus, from (3.3) at t= 0,
+∫
+M
+ℓL ′fdm + 1
+∫
+M
+ℓhL fdm = −
+∫
+M
+HT (∇f,∇ℓ)dm − 1
+∫
+M
+hT(∇f,∇ℓ)dm
++
+∫
+∂M
+ℓ
+(
+HT (ν,∇f) + 1
+2H(ν,ν)T(∇f,ν)
+)
+dµ
++
+∫
+∂M
+ℓ
+˜h
+2 T(∇f,ν)dµ.
+Rearranging the above equation, we have∫
+M
+ℓL ′fdm = −
+∫
+M
+HT (∇f,∇ℓ)dm +
+∫
+∂M
+ℓHT (ν,∇f)dµ
+− 1
+∫
+M
+(
+hT(∇f,∇ℓ) + ℓhL f
+)
+dm
++ 1
+∫
+∂M
+ℓ
+( ˜h+ H(ν,ν)
+)
+T(∇f,ν)dµ. (6.2)
+Finally, plugging (3.8) and (3.9) in (6.2), we obtain
+∫
+M
+lL ′fdm =
+∫
+M
+ℓ
+( 1
+2T(∇h,∇f) + div η(HT ∇f)
+)
+dm
++ 1
+∫
+∂M
+ℓ
+(
+− h+ H(ν,ν) + ˜h
+)
+T(∇f,ν)dµ,
+for all ℓ∈ C∞(M), which is suﬃcient for completing the proof of our proposition,
+since ˜h= tr g(H|∂M ) = h− H(ν,ν). For the general case, we use equation (3.10) to
+conclude the proof. □
+10 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Below we will obtain Hadamard-type formulas for the eigenvalues of L with
+Tg-Neumann boundary condition.
+Proposition 3. Let (M,g0) be a compact Riemannian manifold, and g(t) be
+a smooth variation of g0. Consider {φi(t)} ⊂ C∞(M) a diﬀerentiable family of
+functions and λi(t) a diﬀerentiable family of real numbers such that λi(0) = λ for
+each i= 1 ,...,m and for all t
+{ − ¯Lg(t)φi(t) = λi(t)φi(t) in M
+Tt(νt,∇φi(t)) = 0 on ∂M,
+which ⟨φi(t),φj (t)⟩L2(M,dmt) = δij. Then, we obtain the following variation formula
+(λi + λj )′δij =
+∫
+M
+⟨1
+2 Lg0 (φiφj )g0 − 2(Tg0 ∇φi)♭ ⊗ dφj − 2dφi ⊗ (Tg0 ∇φj )♭,H⟩dm
++
+∫
+M
+[
+2⟨dF∗
+g0 Sym(dφi ⊗ dφj ),H⟩+ T(∇ ˙η,∇(φiφj ))
+]
+dm,
+where (Tg0 ∇φi)♭ is the 1-form associated to Tg0 ∇φi induced by g0, and Sym denotes
+the symmetrization operator.
+Proof. Taking the derivative with respect to t in both sides of the identity
+− ¯Lg(t)φi(t) = λi(t)φi(t),
+one has at t= 0
+− ¯L ′φi − ¯L φ′
+i = λ′
+iφi + λφ′
+i.
+Thus
+−
+∫
+M
+(φj ¯L ′φi + φj ¯L φ′
+i)dm =
+∫
+M
+(λ′
+iφj φi − φ′
+i ¯L φj )dm.
+Now, since T(νt,∇tφi(t)) = 0 on ∂M, we deduce from (3.3) that
+T(ν,∇φ′
+i) = −HT (ν,∇φi).
+Moreover, integration by parts gives
+λ′
+iδij = −
+∫
+M
+φj ¯L ′φidm −
+∫
+∂M
+φj T(ν,∇φ′
+i)dµ
+= −
+∫
+M
+φj ¯L ′φidm +
+∫
+∂M
+φj HT (ν,∇φi)dµ.
+Whence,
+−(λi + λj )′δij =
+∫
+M
+φj ¯L ′φidm +
+∫
+M
+φi ¯L ′φj dm −
+∫
+∂M
+φiHT (ν,∇φj )dµ
+−
+∫
+∂M
+φj HT (ν,∇φi)dµ
+=
+∫
+M
+2 T(∇h,∇(φiφj ))dm +
+∫
+M
+φidivη(HT ∇φj )dm
++
+∫
+M
+φj divη(HT ∇φi)dm +
+∫
+M
+T(∇ ˙η,∇(φiφj ))dm
+−
+∫
+∂M
+φiHT (ν,∇φj )dµ−
+∫
+∂M
+φj HT (ν,∇φi)dµ.
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 11
+Next, we use the divergence theorem to compute
+(λi +λj )′δij =
+∫
+M
+h
+¯L (φiφj )dm+2
+∫
+M
+HT (∇φi,∇φj )dm+
+∫
+M
+T(∇ ˙η,∇(φiφj ))dm
+(6.3)
+or equivalently
+(λi + λj )′δij =2
+∫
+M
+⟨1
+4 L (φiφj )g− (T∇φi)♭ ⊗ dφj − dφi ⊗ (T∇φj )♭,H⟩dm
++ 2
+∫
+M
+⟨dF∗
+g Sym(dφi ⊗ dφj ),H⟩dm +
+∫
+M
+T(∇ ˙η,∇(φiφj ))dm
+as in Proposition 1. □
+Now, we will prove the existence of analytic curves of eigenvalues.
+Proposition 4. Let (M,g0) be a compact Riemannian manifold and g(t) be a
+real analytic one-parameter family of Riemannian metrics o n M with g(0) = g0.
+Assume λis an eigenvalue of multiplicity mfor the operator Lg0 with Tg0 -Neumann
+boundary condition. Then, there exist ε >0, and t-analytic functions λi(t) and
+φi(t), with i= 1 ,...,m and |t| <ε, such that ⟨φi(t),φj (t)⟩L2(M,dmt) = δj
+i , λi(0) = λ
+and {
+−Ltφi(t) = λi(t)φi(t) in M
+Tt(∇φi(t),νt) = 0 on ∂M.
+The following remark is due at this point. The main technique utilized in th e
+proof of Proposition 4 is the Liapunov-Schmidt method. In particula r, we will fol-
+low along the same lines of proof as in Henry [ 12], Marrocos and Pereira [ 17], and
+Gomes and Marrocos [ 10], for they already successfully employed this method in
+contexts similar to ours. The proof of Proposition 4 requires the fo llowing propo-
+sition.
+Proposition 5. Let (M,g0) be a compact Riemannian manifold, and λ0 be an
+eigenvalue of multiplicity m >1 of the operator L with Tg0 -Neumann boundary
+condition. Then for every ǫ >0 there is δ > 0 so that for each |t| < δ, there
+exist exactly m eigenvalues (counting their multiplicities) to Problem (6.1) in the
+interval (λ0 − ǫ,λ0 + ǫ).
+Proof. Let {φj }m
+j=1 be an orthonormal basis associated with λ0, and consider
+the orthonormal projection on the corresponding eigenspace
+Pu =
+m∑
+j=1
+φj
+∫
+M
+φj udm0.
+Note that P induces the splitting L2(M,dm0) = R(P)⊕N (P) so that any function
+u ∈ L2(M,dm0) can be written as u = φ+ ψ, where φ ∈ R (P) = ker(L + λ0)
+and ψ ∈ N (P). With this in mind, we consider the family of metrics g(t) on M
+and the family of eigenvalue problems, where the operator L remains ﬁxed and
+the families Tt and νt change with the parameter t along the boundary,
+
+
+
+(I− P)(L + λ)(φ+ ψ) = 0 in M
+P(L + λ)(φ+ ψ) = 0 in M
+Tt(νt,∇(φ+ ψ)) = 0 on ∂M.
+(6.4)
+12 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+To solve problem (6.4), we ﬁrst observe that since φj and ψ are orthonormal,
+by the divergence theorem we must have
+P(L + λ)ψ =
+m∑
+j=1
+φj
+∫
+M
+φj (L + λ)ψdm0
+=
+p∑
+j=1
+φj
+∫
+M
+φj (L + λ)ψ− ψ(L + λ)φj dm0
+=
+p∑
+j=1
+φj
+∫
+∂M
+φj T(∇ψ,ν) − ψT(∇φ,ν)dµ0
+=
+m∑
+j=1
+φj
+∫
+∂M
+φj T(∇ψ,ν)dµ0
+which implies
+(L + λ)ψ= ( I− P)
+(
+(L + λ)ψ
+)
++
+m∑
+j=1
+φj
+∫
+∂M
+φj T(∇ψ,ν)dµ0.
+Thus, we get
+(L + λ)ψ+ (I− P)(Lt − L )(φ+ ψ) −
+m∑
+j=1
+φj
+∫
+∂M
+φj T(∇ψ,ν)dµ0 = 0 .
+Moreover, the part concerning the boundary in (6.4) can be rewrit ten as
+T(ν,∇ψ) + Tt(νt,∇(φ+ ψ)) − T(ν,∇(φ+ ψ)) = 0 .
+Hence, to solve the ﬁrst and the third equations of (6.4), is equivale nt to ﬁnding
+the zeros of the map
+F : R × R × R(P) × H2(M) ∩ N (P) − → N (P) × H
+2 (M)
+(t,λ,φ,ψ ) ↦→
+(
+F1(t,λ,φ,ψ ),F2(t,λ,φ,ψ )
+)
+,
+where
+
+
+
+
+F1 = ( L + λ)ψ+ (I− P)(Lt − L )(φ+ ψ) −
+m∑
+j=1
+φj
+∫
+∂M
+φj T(∇ψ,ν)dµ0
+F2 = T(ν,∇ψ) + Tt(νt,∇(φ+ ψ)) − T(ν,∇(φ+ ψ)).
+Note that F depends diﬀerentially on the variables λ, t, ψ e φ. Our intention is
+to use the implicit function theorem to show that F(t,λ,φ,ψ ) = (0 ,0) admits a
+solution ψ as function of λ, t and φ. To this end, we observe that if t= 0 ,λ = λ0
+and ψ= 0, then
+∂F
+∂ψ(0,λ0,0,0) ˙ψ=
+(
+(L + λ0) ˙ψ−
+m∑
+j=1
+φj
+∫
+∂M
+φj T(∇ ˙ψ,ν)dµ0 , ∂ ˙ψ
+∂ν
+)
+. (6.5)
+We claim now that the map given in (6.5) is an isomorphism from H2(M) ∩ N (P)
+onto N (P) × H
+2 (M). Indeed, the proof of this fact can be found in [ 16].
+Hence, by the implicit function theorem there exist positive numbers δ, ǫ and
+a function S(t,λ)φ of class C1 at the variables ( t,λ) such that for every |t| <δ and
+λ ∈ (λ0 − ǫ,λ0 + ǫ), F(t,λ,φ,S (t,λ)φ) = (0 ,0). Furthermore, S(t,λ)φ is analytic
+at λ and linear at φ. This solves the equation (6.4) in relation to ψ.
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 13
+We now observe that for every φ∈ R (P) there exist real numbers c1,c2,...,c m
+so that φ = ∑ m
+j=1 cj φj . Thus, the second equation in (6.4) can be equivalently
+perceived as a system of equations in the variables c1,...,c m as below
+m∑
+j=1
+cj
+∫
+M
+φk(Lt + λ)(φj + S(t,λ)φj )dm0 = 0 , k = 1 ,2,...,m.
+In this way, λ is an eigenvalue of Lt if and only if det A(t,λ) = 0, where A(t,λ) is
+given by
+Akj (t,λ) =
+∫
+M
+φk(Lt + λ)(φj + S(t,λ)φj )dm0.
+Furthermore, the associated eigenfunctions are given by
+u(t,λ) =
+m∑
+j=1
+cj (φj + S(t,λ)φj ).
+In other words, c = ( c1,...,c m) must satisfy A(t,λ)c = 0. It turns out that by
+Rouch´ e theorem, we have that: For every ǫ> 0 there is δ >0 so that if |t− t0| <δ,
+then there exist exactly m-roots of det A(t,λ) = 0 in the interval ( λ0 −ǫ,λ0 +ǫ). □
+Proof of Proposition 4. Assume the same hypotheses as in Proposition 5.
+We must show that there exist m analytic curves of eigenvalues λj (t) for (6 .1)
+associated to m analytic curves of eigenfunctions φj (t). The strategy of proof is
+to reduce the problem to a ﬁnite-dimensional one and to apply Kato's Selection
+theorem, see [ 14]. With this in mind, we will make a slightly diﬀerent construction
+than that of Proposition 5. This will result, as we will see shortly, in ob taining a
+symmetric matrix.
+Let {φj }m
+j=1 be orthonormal eigenfunctions of the Laplace-Neumann operato r
+associated with λ0. For each j = 1 ,...,m consider the following problem
+
+
+
+
+
+
+
+
+
+(L + λ0)u = 0 in M
+Tt(νt,∇(φj + u)) = 0 on ∂M
+Pu =
+m∑
+j=1
+φj
+∫
+M
+φj udm0 = 0 in M.
+(6.6)
+Consider now the orthogonal complement [ φj ]⊥ of ker(L + λ0) in L2(M,dm0)
+and deﬁne
+F : ( −δ,δ) × H2(M,dm0) − →[φj ]⊥ × R(P) × H
+2 (M,dm0)
+by
+F(t,w) =
+(
+(L + λ0)w, Pw, Tt(νt,∇(φj + w))
+)
+.
+Exactly as before we get that ∂F
+∂w (0,0) is an isomorphism, so by the implicit function
+theorem there exist δ >0 and an analytic function wj (t) deﬁned on |t− t0| < δ
+such that F(t,wj (t)) = 0. In addition, we obtain for each |t− t0| < δa linearly
+independent set of functions {ϕj (t)}m
+j=1, given by ϕj (t) = φj + wj (t), that satisfy
+the equation (6 .6). By using the Gram-Schmidt orthonormalization process with
+respect to the inner product
+(u,v) :=
+∫
+M
+uvdmt,
+14 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+we can without loss of generality assume that {ϕj (t)}m
+j=1 is orthonormal. Note that
+the functions ϕj (t) belong to Dt = {u∈ H2(M,dm0),Tt(νt,∇u) = 0 }. Moreover,
+since Lt is self-adjoint with respect to the inner product deﬁned above, it f ollows
+that the matrix
+∫
+M ϕj Ltϕkdmt is symmetric.
+For a given T ∈ S 2,k, we deﬁne a family of Riemannian metrics on M by
+g(t) = g0 + tT and let P(t) be given by
+P(t)u=
+m∑
+j=1
+ϕj (t)
+∫
+M
+uϕj (t)dmt.
+We ﬁnally deﬁne for each j = 1 ,...,m ,
+Gj : ( −ǫ,ǫ) × R × H2(M) − → [φj ]⊥ × H
+2 (M,dm0) × R(P)
+(t,λ,w ) ↦→
+(
+Gj1(t,λ,w ),Gj2(t,λ,w ),Gj3(t,λ,w )
+)
+by 
+
+
+Gj1 = ( I− P(t))((Lt + λ))(w+ ϕj (t))
+Gj2 = Tt(νt,∇w);
+Gj3 = P(t)w.
+Once again, the implicit function theorem yields a number δ >0 and functions
+wj (t,λ) such that for any |t − t0| < δ and every |λ − λ0| < δ, the equality
+Gj (t,λ,w j (t,λ)) = (0 ,0,0) holds. As we know, λ is an eigenvalue for (6.1) if
+and only if there exists a nonzero m-uple c= ( c1,...,c m) of real numbers such that
+A(t,λ)c= 0, where
+Aij (t,λ) =
+∫
+M
+ϕi(t)(Lt + λ)(ϕj (t) + wj (t,λ))dmt.
+That is, λ is an eigenvalue of (6.1) if det A(t,λ) = 0. By Rouch´ e's theorem, there
+exist m roots near λ0 counting multiplicity, for each t. So by Puiseux's theo-
+rem [ 22] there exist m-analytic functions t → λi(t) which locally solve the equa-
+tion det A(t,λ) = 0. It can be easily seen that A is symmetric and hence, by
+Kato's Selection theorem [ 14], we can ﬁnd an analytic curve ci(t) ∈ Rm such that
+A(t,λi(t))ci(t) = 0, for each i= 1 ,...,m . Thus
+ψi(t) =
+m∑
+j=1
+ci
+j (t)(ϕj + ωj (t,λi(t)))
+is an analytic curve of eigenfunctions for (6.1) associated with λi(t). Reasoning
+exactly as Kato in [ 14, p. 98] we can obtain m-analytic curves of eigenvalues
+{φi(t)}m
+i=1 such that
+∫
+M φi(t)φj (t)dmt = δj
+i .
+□
+Remark 1. In the case of m = m(λ0) = 1 , the existence of a diﬀerentiable
+curve of eigenvalues through λ0 follows directly from the implicit function theorem
+applied to the map F : Sk × H2(M,dm0) × R → L2(M,dm0) × R deﬁned by
+F(g,u,λ ) =
+(
+(Lg + λ)u,
+∫
+M
+u2dm0
+)
+.
+The corresponding formula to the derivative λ′(t) can be obtained by letting i= j =
+1 in Proposition 3.
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 15
+Remark 2. We observe that Theorem 1 remains valid if we replace the Diri ch-
+let boundary condition by the Tg-Neumann boundary condition.
+7. Domain variation
+In this section we consider the case of domain deformation. For this , let ( M,g)
+be a Riemannian manifold, Ω ⊂ M be a bounded domain with smooth boundary
+∂Ω, and T be a symmetric (0 ,2)-tensor on M. We consider a deformation Ω t by
+the family of diﬀeomorphisms ft : Ω → Ω t, where f0 = idΩ is the identity map.
+The smooth variations of g and T are given by
+g(t) = f∗
+t g and Tt = f∗
+t T.
+We denote
+V = d
+dt
+⏐
+⏐
+t=0ft, H = d
+dt
+⏐
+⏐
+t=0f∗
+t g= LV g and T′ = d
+dt
+⏐
+⏐
+t=0f∗
+t T = LV T.
+The next two technical lemmas are necessary tools to obtain the Ha damard-
+types formulas given by Proposition 7.
+Lemma 3. For X,Y ∈ X(M), we have
+HT (X,Y ) = −⟨∇T X V,Y ⟩ − ⟨X,∇T Y V⟩+ ⟨(∇V T)X,Y ⟩. (7.1)
+Proof.
+T′(X,Y ) = ( LV T)(X,Y )
+= V⟨TX,Y ⟩ − T(∇V X− ∇X V,Y ) − T(X,∇V Y − ∇Y V)
+= T(X,∇Y V) + T(∇X V,Y ) + ⟨∇V (TX),Y ⟩ − T(∇V X,Y )
+= T(X,∇Y V) + T(∇X V,Y ) + ⟨(∇V T)X,Y ⟩.
+In particular, for T = g, we get
+H(X,Y ) = ⟨∇X V,Y ⟩+ ⟨X,∇Y V⟩.
+Follows that
+HT(X,Y ) = H(TX,Y ) = ⟨∇T X V,Y ⟩+ ⟨TX, ∇Y V⟩
+and
+TH(X,Y ) = H(X,TY ) = ⟨∇X V,TY ⟩+ ⟨X,∇T Y V⟩.
+By using the identity HT = T′ − (HT + TH) we conclude our proof. □
+Lemma 4. For any eigenfunctions associated to the eigenvalue λ we have
+HT (∇φi,∇φj ) = −divη(⟨V,∇φj ⟩T∇φi +⟨V,∇φi⟩T∇φj )+ 1
+2 ⟨V,∇L (φiφj )⟩. (7.2)
+Proof. Equation (7.1) implies
+HT (∇φi,∇φj ) = − ⟨∇T ∇φi V,∇φj ⟩ − ⟨∇T ∇φj V,∇φi⟩+ ⟨(∇V T)∇φi,∇φj ⟩.
+Now, we observe that
+⟨∇T ∇φi V,∇φj ⟩ = div η(⟨V,∇φj ⟩T∇φi) + λ⟨V,∇φj ⟩φi − ∇2φj (V,T ∇φi).
+Moreover,
+∇2φj (V,T ∇φi) + ∇2φi(V,T ∇φj ) + ⟨(∇V T)∇φi,∇φj ⟩ = ⟨∇(T(∇φi,∇φj )),V ⟩.
+16 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Thus,
+HT (∇φi,∇φj ) = − divη(⟨V,∇φj ⟩T∇φi + ⟨V,∇φi⟩T∇φj ) − λ⟨V,∇(φj φi)⟩+
++ ⟨∇(T(∇φi,∇φj )),V ⟩
+= −divη(⟨V,∇φj ⟩T∇φi + ⟨V,∇φi⟩T∇φj ) + 1
+2⟨V,∇L (φiφj )⟩.
+It ﬁnishes the proof. □
+The next proposition provides Hadamard-type formulas for the eig envalues of
+the operator L considering both Dirichlet and Neumann boundary conditions.
+Proposition 6. Let (M,g) be a Riemannian manifold, Ω ⊂ M be a bounded
+domain, ft : Ω → (M,g) be an analytic family of diﬀeomorphisms (Ω t = ft(Ω)) and
+λ be an eigenvalue of Lg with multiplicity m >1. Then there exist a family of m
+functions {φi(t)} ∈ C∞(Ω t) with ⟨φi(t),φj (t)⟩L2(Ω t,dm) = δij and a diﬀerentiable
+family of real numbers λi(t) with λi(0) = λ, such that they satisfy
+{
+−Ltφi(t) = λ(t)φi(t) in Ω
+Bα(φi(t)) = 0 on ∂Ω , (7.3)
+for all t and i= 1 ,...,m , where Bα(φi) = α⟨T∇φi,νt⟩+ (1 − α)φi for α∈ { 0,1}.
+Moreover, we obtain the following variation formula
+(λi + λj )′
+⏐
+⏐
+⏐
+t=0
+δij =
+∫
+∂Ω
+[
+L (φiφj )⟨V,ν⟩ − 2⟨V,∇φj ⟩⟨∇φi,Tν ⟩ − 2⟨V,∇φi⟩⟨∇φj ,Tν ⟩
++ ⟨V,∇η⟩⟨∇(φiφj ),Tν ⟩
+]
+dµ (7.4)
+where V = d
+dt
+⏐
+⏐
+t=0ft.
+Remark 3. We point out that if T = id and η is constant, then formula (7.4)
+has been obtained by Souﬁ and Ilias [20], moreover, Henry [12] also gave a similar
+formula for the Laplacian on domains in Rn.
+Proof. Consider the family of metrics g(t) = f∗
+t gand symmetric (0 ,2)-tensors
+Tt = f∗
+t T on Ω. It is not diﬃcult to see that Lemma 2 is still valid for the operator
+¯Lt with η(t) = η◦ ft, that is, there exists a family { ¯φi(t)} ⊂ C∞(Ω) of analytic
+functions in t satisfying ⟨¯φi(t),¯φj (t)⟩L2(Ω ,dmt) = δij and
+− ¯Lt ¯φi(t) = λi(t) ¯φi(t) in Ω . (7.5)
+We claim that λi(t) and φi(t) := ¯φi(t) ◦ f−1
+t satisfy (7.3). Initially, we have
+g(df(TtX),dfei) = gt(TtX,ei) = Tt(X,ei) = T(dfX,dfei) = g(TdfX,dfei),
+for all X ∈ X(M). So dfTt∇t ¯φ= T∇φ and
+divgT∇φ= div gdfTt∇t ¯φ= div g(t)Tt∇t ¯φ.
+Thus, for each q= f(p) ∈ Ω t we obtain
+(
+Lgφi(t)
+)
+(q) =
+[
+divg
+(
+T∇φi(t)
+)
+− T
+(
+∇η,∇φi(t)
+)]
+f(p)
+=
+[
+divg(t)
+(
+Tt∇t ¯φi(t)
+)
+− Tt
+(
+∇tη(t),∇t ¯φi(t)
+)]
+p
+=
+[ ¯Lt ¯φi(t)
+]
+p = −λi(t)
+( ¯φi(t)
+)
+p = −λi(t)
+(
+φi(t) ◦ f
+)
+p = −λi(t)φi(t)(q).
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 17
+Since ¯φi(0) = φi(0), ¯L0 = L and h= ⟨H,g⟩ = 2div V, by equations (4.2) and
+(6.3) we have
+sijδij =
+∫
+Ω
+L (φiφj )divV + 2HT (∇φi,∇φj ) + T(∇ ˙η,∇(φiφj ))dm,
+where sij = ( λi + λj )′ and ˙η = d
+dt
+⏐
+⏐
+t=0(η◦ ft) = ⟨∇η,V ⟩. By Lemma 4 and the
+identity
+divη( ˙ηT(∇(φiφj ))) = ˙ηL (φiφj ) + T(∇ ˙η,∇(φiφj ))
+= ⟨L (φiφj )V,∇η⟩+ T(∇ ˙η,∇(φiφj )),
+we obtain
+sijδij =
+∫
+Ω
+[
+L (φiφj )divV − 2divη(⟨V,∇φj ⟩T∇φi + ⟨V,∇φi⟩T∇φj )
++ ⟨V,∇L (φiφj )⟩+ divη(⟨V,∇η⟩T∇(φiφj )) − ⟨L (φiφj )V,∇η⟩
+]
+dm
+=
+∫
+Ω
+[
+divη(L (φiφj )V − 2⟨V,∇φj ⟩T∇φi − 2⟨V,∇φi⟩T∇φj
++ ⟨V,∇η⟩T∇(φiφj )
+]
+dm
+=
+∫
+∂Ω
+[
+L (φiφj )⟨V,ν⟩ − 2⟨V,∇φj ⟩⟨T∇φi,ν⟩ − 2⟨V,∇φi⟩⟨T∇φj ,ν⟩
++ ⟨V,∇η⟩⟨T∇(φiφj ),ν⟩
+]
+dµ,
+which is (7.4). □
+Proposition 6 under the boundary conditions becomes
+Proposition 7. Let ft,λ(t),φi(t) be as in Proposition 6, and let us consider
+the eigenvalue boundary problem
+{ −Ltφi(t) = λ(t)φi(t) in Ω
+Bα(φi(t)) = 0 on ∂Ω . (7.6)
+Then we have
+for α= 0 case: ( λi + λj )′δij = −2
+∫
+∂Ω
+∂φi
+∂ν
+∂φj
+∂ν T(ν,ν)⟨V,ν⟩dµ, (7.7)
+for α= 1 case: ( λi + λj )′δij = 2
+∫
+∂Ω
+(T(∇φi,∇φj ) − λφiφj )⟨V,ν⟩dµ. (7.8)
+Proof. It is enough to use (7.4) together with the identities
+L (φiφj ) = φiL φj + φj L φi + 2T(∇φi,∇φj )
+and
+∇φi = ∇∂Ω φi + ∂φi
+∂ν ν on ∂ Ω
+to obtain (7.7) and (7.8). □
+It is known that the set Diﬀ r(Ω) of Cr-diﬀeomorphisms of Ω is an aﬃne sub-
+manifold of a Banach Space [ 8]. The result below shows that the multiplicity of an
+eigenvalue can be reduced by small perturbation of the domain.
+18 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Theorem 2. Let (M,g) be a Riemannian manifold and let Ω ⊂ M be a bounded
+domain. If λ is an eigenvalue with multiplicity m> 1 of the problem{
+−Lgφ = λφ in Ω
+Bαφ = 0 on ∂Ω , (7.9)
+where Bα(φi) = α⟨T∇φi,νt⟩+ (1 − α)φi for α∈ { 0,1}, then in every neighborhood
+of the identity idΩ with respect to the Cr topology, there exist a diﬀeomorphism f
+and a positive ǫsuch that |λ(f)−λ(idΩ )| <ǫ, and λ(f) is simple. In particular, the
+subset of diﬀeomorphisms D ⊂ Diﬀ r(Ω) that make the eigenvalues of (7.9) simple,
+is residual.
+Proof. Let λbe an eigenvalue of multiplicity m> 1 and suppose that, for all
+perturbation by diﬀeomorphism of Ω, the multiplicity of λcannot be reduced. The
+proceeding follows the same lines as in proof of Theorem 1.
+For α= 0 case, from (7.7) we have ∂φi
+∂ν
+∂φj
+∂ν = 0 on ∂Ω. This way either ∂φi
+∂ν = 0
+or ∂φj
+∂ν = 0 in some open set U of ∂Ω. If ∂φi
+∂ν = 0 in U, since φi = 0 on ∂Ω, it
+follows from the unique continuation principle [ 13] that φi = 0 on Ω, which is a
+contradiction.
+For α= 1 case. From (7.8) we have
+T(∇φi,∇φj ) − λφiφj = 0
+on ∂Ω. By the Uhlenbeck's argument once again we get a contradiction. I t proves
+the ﬁrst part of the theorem. The second part follows from the an alogous argument
+as in the proof of Theorem 1. □
+8. Application to extremal domains for the kth-eigenvalue
+Before to claim the main results of this section we will begin with some de ﬁ-
+nitions and remarks. Here, we will consider only analytic volume-pres erving defor-
+mation of Ω ⊂ M. Let µk(t) be the kth-eigenvalue of Lt with Dirichlet boundary
+condition.
+If Ω t = ft(Ω) is an analytic volume-preserving deformation of Ω, then it is not
+diﬃcult to see that v:=
+⟨ d
+dt
+⏐
+⏐
+⏐
+t=0
+ft,ν
+⟩
+must satisfy
+∫
+∂Ω vdµ= 0. We denote A0(∂Ω)
+the set of all regular functions on ∂Ω such that
+∫
+∂Ω vdµ= 0. Souﬁ and Ilias proved
+that given a v ∈ A 0(∂Ω) there exists an analytic volume-preserving deformation
+Ω t = ft(Ω) such that v:=
+⟨ d
+dt
+⏐
+⏐
+⏐
+t=0
+ft,ν
+⟩
+∈ A 0(∂Ω) (see [ 20]). Recall that a domain
+Ω ⊂ M is a local minimizer (local maximizer) for the kth-eigenvalue µk of L if for
+any analytic volume-preserving deformation Ω t, the function t ↦→µk(t) admits a
+local minimum (local maximum) at t= 0.
+Theorem 3. Let k be a positive integer such that the kth-eigenvalue µk of
+L φ = div η(T∇φ) with Dirichlet boundary condition satisﬁes µk > µk−1 (resp.
+µk < µk+1). If Ω is a local minimizer (resp. local maximizer) for µk, then, it is
+simple and for some constant c its associated eigenfuction φ satisﬁes⏐
+⏐
+⏐
+⏐
+∂φ
+∂ν
+√
+T(ν,ν)
+⏐
+⏐
+⏐
+⏐= c on ∂Ω .
+Proof. Suppose µk > µk−1 and consider v =
+⟨ d
+dt
+⏐
+⏐
+⏐
+t=0
+ft,ν
+⟩
+∈ A 0(∂Ω) such
+that Ω t = ft(Ω) is a volume-preserving analytic deformation of Ω. Let {λi(t)} and
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 19
+{φi(t)} be analytic families of eigenvalues and eigenfunctions given by Lemma 2
+such that λi(0) = µk. By continuity λi(t) > µk−1(t) for suﬃciently small t, since
+λi(0) = µk >µk−1. By hypothesis, the function t↦→µk(t) admits a local minimum
+at t= 0. So, λi(t) also admits a local minimum at t= 0 and then d
+dt λi(t)
+⏐
+⏐
+t=0 = 0.
+Eq. (7.7) of Proposition 7 give us
+∫
+∂Ω
+v
+( ∂φ
+∂ν
+) 2
+T(ν,ν)dµ= 0
+for all φ ∈ Ek and v ∈ A 0(∂Ω), where Ek is the eigenspace associated to kth-
+eigenvalue µk. Hence, ∂φ
+∂ν
+√
+T(ν,ν) is locally constant on ∂Ω for any φ ∈ Ek.
+Let φ1 and φ2 be two eigenfunctions in Ek, one can ﬁnd a linear combination
+αφ1 + βφ2 =: φ so that ∂φ
+∂ν vanishes, at least, on one connected component of Ω.
+To this end, it is suﬃcient to choose α and β such that
+α∂φ1
+∂ν
+√
+T(ν,ν) = −β∂φ2
+∂ν
+√
+T(ν,ν).
+Applying the principle of the unique continuation [ 13], we deduce that φ is identi-
+cally zero and that µk is simple. To complete the proof, we must show that, for all
+φ∈ Ek, ( ∂φ
+∂ν
+) 2
+T(ν,ν)
+takes the same constant value on all the connected components o f ∂Ω. For it, let
+Σ 1 and Σ 2 be two distinct connected components of ∂Ω and let v∈ A 0(∂Ω) be the
+function given by v= vol(Σ 2) on Σ 1, v= −vol(Σ 1) on Σ 2 and v= 0 on the others
+components. Then the condition
+∫
+∂Ω v
+(
+∂φ
+∂ν
+) 2
+T(ν,ν)dµ= 0 implies that
+( ∂φ
+∂ν
+) 2
+T(ν,ν)
+⏐
+⏐
+⏐
+⏐
+⏐
+Σ 1
+=
+( ∂φ
+∂ν
+) 2
+T(ν,ν)
+⏐
+⏐
+⏐
+⏐
+⏐
+Σ 2
+which completes the proof of our assertion. Notice that the same a rguments hold
+in the case µk <µk+1. □
+9. Applications to Ricci ﬂow on closed manifold
+In this section, we study some properties of the eigenvalues of Lg(t) along the
+Ricci ﬂow equation
+d
+dtg(t) = −2Ricg(t)
+on an ( n ≥ 3)-dimensional closed smooth manifold Mn, where Ricg(t) stands for
+the Ricci curvature of the Riemannian manifold ( M,g(t)).
+Hamilton [ 11] established the existence and the uniqueness of solutions to the
+Ricci ﬂow equation in a maximal interval [0 ,δ), δ ≤ +∞, for any given initial
+Riemannian metric g0 = g(0). This maximal solution is then called the Ricci ﬂow
+with initial condition g0, and δ (whenever ﬁnite) is called the blow-up time of the
+ﬂow.
+We start by observing that the eigenvalues of Lg(t)(·) = div η(Tg(t)∇(·)) can
+be parametrized C2-diﬀerentiable in t, see Theorem ( C) in [ 15]. Now, we derive a
+general evolution formula for the eigenvalues of Lg(t) along the Ricci ﬂow.
+20 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Proposition 8. If λ(t) denotes the evolution of an eigenvalue of Lg(t) along
+the Ricci ﬂow on Mn, then
+λ′ =
+∫
+M
+R(λu2 − T(∇u,∇u))dm +
+∫
+M
+[
+4Ric(T∇u,∇u) + T′(∇u,∇u)
+]
+dm, (9.1)
+where u stands for an eigenfunction associated to the eigenvalue λ, and R is the
+scalar curvature.
+Proof. Taking H = −2Ricg(t) we get
+TH(∇u,∇u) = HT(∇u,∇u) = −2Ric(T∇u,∇u).
+Thus, by deﬁnition of HT we have
+HT (∇u,∇u) = 4 Ric(T∇u,∇u) + T′(∇u,∇u).
+Since h= −2Rand L u2 = 2 uL u+ 2T(∇u,∇u), we obtain from (4.2)
+λ′(t) =
+∫
+M
+h
+4 L u2 + HT (∇u,∇u)dm
+=
+∫
+M
+R(λu2 − T(∇u,∇u))dm +
+∫
+M
+4Ric(T∇u,∇u) + T′(∇u,∇u)dm,
+which is (9.1). □
+Let us now consider the behavior of the spectrum when we evolve an initial
+metric that is homogeneous. Hamilton showed that the Ricci ﬂow pre serves the
+isometries of the initial Riemannian manifold. Hence, the evolving metr ic remains
+homogeneous along the ﬂow. This important observation implies the f ollowing:
+Theorem 4. Let λ(t) be the evolution of an eigenvalue of Lg(t) along the Ricci
+ﬂow on a closed homogeneous Riemannian manifold Mn. If T′ ≥ − 4Ric(T,·), then
+λ(t) is non-decreasing along the ﬂow.
+Proof. Since the evolving metric remains homogeneous along the ﬂow, we
+have that R is constant for all time. So, from equation (2.1) and Proposition 8 we
+deduce that
+λ′ =
+∫
+M
+4Ric(T∇u,∇u) + T′(∇u,∇u)dm
+and the result follows from the assumption that T′ ≥ − 4Ric(T,·). □
+Example 1. Let g(t) be a solution to the Ricci ﬂow on a closed homogeneous
+Riemannian manifold Mn such that the initial Riemannian metric has strictly pos-
+itive Ricci curvature and it continues so for all time. Consi der Tt = ψg(t), for
+some positive smooth function ψ on Mn. Then, T′ > −4Ric(T,·) and hence the
+eigenvalue λ(t) of divη(ψ∇(·)) is non-decreasing along the ﬂow.
+For a three-dimensional closed smooth manifold, Hamilton also prove d that if
+the initial Riemannian metric has strictly positive Ricci curvature, th en it continues
+so for all time.
+Theorem 5. Let g(t) be a solution to the Ricci ﬂow on a three-dimensional
+closed Riemannian manifold M3 with initial Ricci curvature that is strictly positive.
+Then, there exist t0 ∈ [0,δ) such that the eigenvalue λ(t) of divη(ψ∇(·)) increase
+for t∈ [t0,δ).
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 21
+Proof. Let g(t) be a solution to the Ricci ﬂow on a closed three-manifold M
+with strictly positive initial Ricci curvature, then R >0 and there is ε >0 such
+that Ric ≥ εRg, and we can assume 2 ε− 1 ≤ 0. So both conditions remain valid
+on 0 ≤ t<δ (see [ 11, Theorem 9.4]), and then by (9.1)
+λ′(t) = λ
+∫
+M
+u2Rdm −
+∫
+M
+Rψ|∇u|2dm + 2
+∫
+M
+ψRic(∇u,∇u)dm
+≥ λRmin(t) −
+∫
+M
+Rψ|∇u|2dm + 2 ε
+∫
+M
+Rψ|∇u|2dm
+≥ λ(Rmin(t) + (2 ε− 1)Rmax(t)).
+By Theorem 15.1 in [ 11], we have Rmax(t)
+Rmin(t) → 1 as t → δ. Then there is t0 ≥ 0 so
+that
+−(2ε− 1) < Rmin(t)
+Rmax(t) ≤ 1 ∀t0 ≤ t<δ,
+from which we get λ′(t) >0 for all t∈ [t0,δ), which proves our theorem. □
+Let L u = div η(∇u) be the drifted Laplacian and Ricη := Ric+ ∇2η be the
+Bakry-´Emery-Ricci tensor. From the classical Bochner's formula, we obt ain
+2L|∇u|2 = Ricη(∇u,∇u) + ⟨∇(Lu),∇u⟩+ |∇2u|2. (9.2)
+Besides, it is true that
+⟨∇ψ,∇|∇u|2⟩ = 2 ⟨∇∇u∇u,∇ψ⟩ = 2( ∇u)⟨∇ψ,∇u⟩ − 2∇2ψ(∇u,∇u),
+for any smooth function ψ on M. So,
+ψL|∇u|2 = L |∇u|2 − ⟨∇ψ,∇|∇u|2⟩
+= L |∇u|2 − 2(∇u)⟨∇ψ,∇u⟩+ 2∇2ψ(∇u,∇u). (9.3)
+But,
+(∇u)⟨∇ψ,∇u⟩ = ⟨∇u,∇⟨∇u,∇ψ⟩⟩
+= ⟨∇u,∇(L u)⟩ − ⟨∇u,∇(ψLu)⟩
+= div η(L u∇u) − (L u)Lu− divη
+(
+ψLu∇u
+)
++ ψ(Lu)2 (9.4)
+and
+ψ⟨∇(Lu),∇u⟩ = div η
+(
+ψLu∇u
+)
+− (L u)Lu. (9.5)
+Joining (9.2), (9.3), (9.4) and (9.4), we get the Bochner type formu la for the oper-
+ator L u= div η(ψ∇u) as follows
+2L |∇u|2 = div η(L u∇u) + ψRicη(∇u,∇u) − 2(L u)Lu+ ψ(Lu)2
++ψ|∇2u|2 − ∇2ψ(∇u,∇u). (9.6)
+This formula will be useful in the proof of our next result.
+Remark 4. Alencar, Neto and Zhou [1] showed a Bochner type formula for the
+operator that has been introduced by Cheng and Yau [7]. The Bochner type formula
+for the more general expression of L has been proved by Gomes and Miranda [9].
+We know that in the hypothesis of Theorem 5 the solution to the Ricci ﬂow
+becomes extinct in ﬁnite time, in particular, lim
+t→δ
+Rmin(t) = ∞.
+22 C. L. CUNHA 1, J. N. GOMES 2 AND M. A. M. MARROCOS 3
+Theorem 6. Let g(t) be the solution to the Ricci ﬂow on a three-dimensional
+closed Riemannian manifold M3 with strictly positive initial Ricci curvature and
+λ(t) the evolution of an eigenvalue of divη(ψ∇(·)), with ψ ≥ c for some constant
+c> 0. If ∇2ψ≤ 0, then
+lim
+t→δ
+λ(t) = ∞.
+Proof. Integrating (9.6) gives
+∫
+M
+ψRic(∇u,∇u)dm = 2
+∫
+M
+(L u)Ludm −
+∫
+M
+ψ(Lu)2dm −
+∫
+M
+ψ|∇2u|2dm
++
+∫
+M
+∇2ψ(∇u,∇u)dm −
+∫
+M
+ψ∇2η(∇u,∇u)dm
+≤ − 2λ
+∫
+M
+u(Lu)dm −
+∫
+M
+ψ∇2η(∇u,∇u)dm
+= 2 λ
+∫
+M
+|∇u|2dm −
+∫
+M
+ψ∇2η(∇u,∇u)dm
+≤ 2λc−1
+∫
+M
+ψ|∇u|2dm −
+∫
+M
+ψ∇2η(∇u,∇u)dm
+= 2 λ2c−1 −
+∫
+M
+ψ∇2η(∇u,∇u)dm.
+We already know that for any solution of the Ricci ﬂow on a closed thr ee-
+manifold with positive Ricci curvature, there exists ǫ >0 such that Ric ≥ ǫRg is
+preserved along the ﬂow. Thus
+2λ2c−1 −
+∫
+M
+ψ∇2η(∇u,∇u)dm ≥ ǫ
+∫
+M
+Rψ|∇u|2dm ≥ ǫRminλ.
+Now, note that ∇2η(∇u,∇u) ≥ d|∇u|2, for some constant d(t) >0, and then
+λ(t) ≥ c(ǫRmin(t) + d(t))/2.
+Since
+lim
+t→δ
+Rmin(t) = ∞,
+the proof is complete. □
+Acknowledgements: The ﬁrst author is wholeheartedly acknowledging the
+ﬁnancial support by Funda¸ c˜ ao de Amparo ` a Pesquisa do Estado do Amazonas -
+FAPEAM in terms of a doctoral scholarship. The second author has been par-
+tially supported by Conselho Nacional de Desenvolvimento Cient´ ıﬁco e Tecnol´ ogico
+(CNPq), of the Ministry of Science, Technology and Innovation of B razil (Grants
+428299/2018-0 and 310458/2021-8). The third author has been partially supported
+by S˜ ao Paulo Research Foundation (FAPESP, Grant 2016/10009- 3), by CNPq
+(Grant 428299/2018-0) and fully supported by his beloved wife. Th e authors would
+like to express their sincere thanks to D. Tsonev for useful comme nts, discussions
+and constant encouragement.
+References
+[1] H. Alencar, G. S. Neto and D. Zhou, Eigenvalue estimates f or a class of elliptic diﬀerential
+operators on compact manifolds, Bull. Braz. Math. Soc. (N.S .) 46 (3) (2015), 491-514.
+[2] M.C. Ara´ ujo Filho and J.N.V. Gomes, Estimates of eigenv alues of an elliptic diﬀerential
+system in divergence form, Z. Angew. Math. Phys. 73 (2022) 21 0.
+ON EIGENV ALUES OF A CLASS OF SECOND ORDER ELLIPTIC OPERATORS 23
+[3] S. Bando and H. Urakawa, Generic properties of the eigenv alue of the Laplacian for compact
+Riemannian manifolds, Tohoku Math. J. 35 (1983) 155-172.
+[4] M. Berger, Sur les premi` eres valeurs propres des vari´ e t´ es Riemanniennes, Compos. Math. 26
+(1973) 129-149.
+[5] Y. Canzani, On the multiplicity of eigenvalues of confor mally covariant operators, Ann. Inst.
+Fourier 64 (3) (2014) 947-970.
+[6] X. Cao, S. Hou and J. Ling, Estimate and monotonicity of th e ﬁrst eigenvalue under the
+Ricci ﬂow, Math. Ann. 354 (2) (2012) 451-463.
+[7] S. Y. Cheng and S. T. Yau, Hypersurfaces with constant sca lar curvature, Math. Ann. 225
+(1977), 195-204.
+[8] M.C. Delfour and J.-P. Zolesio, Shapes and Geometries: A nalysis, Diﬀerential Calculus, and
+Optimization. Society for Industrial and Applied Mathemat ics, 2001.
+[9] J.N.V. Gomes and J.F.R. Miranda, Eigenvalue estimates f or a class of elliptic diﬀerential
+operators in divergence form, Nonlinear Anal. 176 (2018) 1- 19.
+[10] J.N.V. Gomes and M.A.M. Marrocos, On eigenvalue generi c properties of the Laplace-
+Neumann operator, J. Geom. Phys. 135 (2019) 21-31.
+[11] R.S. Hamilton, Three-manifolds with positive Ricci cu rvature, J. Diﬀerential Geom. 17 (1982)
+255-306.
+[12] D.B. Henry, Perturbation of the boundary in boundary-v alue problems of partial diﬀerential
+equations, Cambridge University Press, 2005.
+[13] L. H¨ ormander, Linear partial diﬀerential operators, Springer, New York, 1963.
+[14] T. Kato, Perturbation Theory for Linear Operators, Spr inger, 1980.
+[15] A. Kriegl and P.W. Michor, Diﬀerentiable perturbation of unbounded operators, Math. Ann.
+327 (2003) 191-201.
+[16] J.L. Lions and E. Magenes, Non-homogeneous boundary va lue problems and applications,
+Die Grundlehren der mathematischen Wissenschaften 181 (19 72) Springer, New York.
+[17] M.A.M. Marrocos and A.L. Pereira, Eigenvalues of the Ne umann Laplacian in symmetric
+regions, J. Math. Phys. 56 (2015) 111502.
+[18] J. Navarro, On second-order, divergence-free tensors , J. Math. Phys. 55 (2014) 062501.
+[19] D. Serre, Divergence-free positive symmetric tensors and ﬂuid dynamic, Ann. Inst. H.
+Poincar´ e Anal. Non Lin´ eaire 35 (5) (2018), 1209-1234.
+[20] A. El Soulﬁ and S. Ilias, Domain deformations and eigenv alues of the Dirichlet Laplacian in
+a Riemannian manifolds, Illinois J. Math. 51 (2007) 645-666 .
+[21] K. Uhlenbeck, Generic Properties of Eigenfunctions, A mer. J. Math. 98 (4) (1976) 1059-1078.
+[22] C.T.C. Wall, Singular Points of Plane Curves, London Ma thematical Society Student Texts,
+2004.
+1Instituto de Educac ¸˜ao, Agricultura e Ambiente, Universidade Federal do Ama-
+zonas, Rua 29 de Agosto, 786, 69.800-000 Humait ´a, Amazonas, Brazil.
+2Departamento de Matem ´atica, Universidade Federal de S ˜ao Carlos, Rod. W ash-
+ington Lu´ıs, Km 235, 13.565-905 S ˜ao Carlos, S ˜ao Paulo, Brazil.
+3Departamento de Matem ´atica, Universidade Federal do Amazonas, A v. General
+Rodrigo Oct ´avio, 6200, 69.080-900 Manaus, Amazonas, Brazil
+Email address : 1ncleiton@ufam.edu.br
+Email address : 2jnvgomes@ufscar.br
+Email address : 3marcusmarrocos@ufam.edu.br
+URL: 1,3https://www.ufam.edu.br
+URL: 2https://www2.ufscar.br

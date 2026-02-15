@@ -1,0 +1,979 @@
+Stochastic thermodynamics of multiple co-evolving systems - beyond multipartite
+processes
+Farita Tasnim∗
+Massachusetts Institute of Technology, Cambridge, MA, USA
+David H. Wolpert †
+Santa Fe Institute, Santa Fe, NM, USA
+Complexity Science Hub, Vienna, Austria and
+Arizona State University, Tempe, AZ, USA
+(Dated: May 23, 2023)
+Many dynamical systems consist of multiple, co-evolving subsystems (degrees of freedom). These
+subsystems often depend upon each other in a way that restricts the overall system's dynamics. How
+does this network of dependencies aﬀect the system's thermodynamics? Prior studies in the stochastic
+thermodynamics of multipartite processes (MPPs) have approached this question by restricting the
+system to allow only one subsystem to change state at a time. However, in many real systems, such
+as chemical reaction networks or electronic circuits, multiple subsystems must change state together.
+Therefore, studies of MPPs do not apply to such systems. Here, we investigate the thermodynamics
+of composite processes, in which subsets of subsystems are allowed to change state simultaneously.
+These subsets correspond to the subsystems that interact with a single mechanism (e.g., a thermal
+or chemical reservoir) that is coupled to the system. An MPP is simply a (subcase of a) composite
+process in which all such subsets have cardinality one. We demonstrate the power of the composite
+systems framework to study the thermodynamics of multiple, co-evolving subsystems. In particular,
+we derive thermodynamic uncertainty relations for information ﬂows in composite processes. We also
+derive strengthened speed limits for composite processes. Our results apply to a much broader class
+of dynamical systems than do results for MPPs, and could guide future studies of the thermodynamics
+of distributed computational systems.
+Many dynamical systems can be decomposed into a
+set of multiple co-evolving subsystems. Each subsys-
+tem is a degree of freedom. For example, information-
+processing systems such as computers and brains con-
+sist of many separate components that evolve together
+and aﬀect each others' dynamics. In practice, such sys-
+tems are not at thermodynamic equilibrium. So, they
+require energy resources to operate.
+Research in the thermodynamics of such distributed
+computational systems seeks to address how their
+information-processing capabilities are constrained by
+the energy resources available to them. To conduct such
+analyses, we must ﬁrst specify the precise way in which
+the subsystems co-evolve. So far in stochastic thermo-
+dynamics, this has often been done by assuming the
+joint dynamics of the subsystems is a multipartite pro-
+cess (MPP) [1-3].
+However, MPPs require that every mechanism (a gen-
+eralized external system mediating the system's state
+transitions, e.g., a thermal or chemical reservoir) cou-
+pled to the system interacts with only one subsystem.
+So, in an MPP, only one subsystem can change state at
+any given time. Unfortunately, at most spatio-temporal
+scales that we observe, multiple subsystems do change
+state at the same time. As a canonical example, in
+chemical reaction networks (Fig. 1(a)), multiple species
+∗ farita@mit.edu, web: farita.me
+† dhw@santafe.edu, web: davidwolpert.weebly.com
+counts must change state concurrently. As another ex-
+ample, the voltages on di ﬀerent conductors in a cir-
+cuit (Fig. 1(b)) must change state at the same time.
+There has been some preliminary work extending
+the stochastic thermodynamics of MPPs to address the
+broader scenario in which each mechanism couples to
+a set of multiple subsystems [4]. Systems with this na-
+ture are called composite systems, and their dynamics is
+called a composite process.
+Here we extend this preliminary work and obtain new
+results in the stochastic thermodynamics of compos-
+ite processes. We decompose key quantities (including
+probability ﬂows, entropy production, and dynamical
+activity) into contributions from each mechanism. We
+also analyze the network specifying which (set of) sub-
+systems can aﬀect the dynamics of each subsystem. This
+network gives rise to units, which are subsets of sub-
+systems whose joint dynamics does not depend on the
+state of the rest of the system. We then use the speciﬁ-
+cation of units and the decomposition of key quantities
+to derive a wealth of thermodynamic uncertainty rela-
+tions (TURs). Finally, we derive a strengthened thermo-
+dynamic speed limit theorem (SLT) for composite pro-
+cesses. This speed limit provides a tighter restriction
+on how much the probability distribution over system
+states can change during a ﬁxed time interval, using the
+contributions from each mechanism to entropy produc-
+tion and dynamical activity. These results also apply to
+MPPs, since they are a special case of a composite pro-
+cess.
+arXiv:2305.09571v2 [cond-mat.stat-mech] 22 May 2023
+We begin by reviewing the preliminary work on com-
+posite processes, including the speciﬁcation of units.
+We then present how key quantities decompose into
+contributions from each mechanism coupled to the sys-
+tem. We then present our results for TURs and strength-
+ened SLTs. We conclude by discussing our results in the
+broader contexts of the thermodynamics of constraints
+and the thermodynamics of computation and by sug-
+gesting avenues of future work.
+I. STOCHASTIC THERMODYNAMICS
+OF COMPOSITE PROCESSES
+A. Background on composite processes
+A composite process is a generalization of MPPs, de-
+scribing the co-evolution of a ﬁnite set of subsystems,
+N= {1,2,...,N }. Each subsystem i has a discrete state
+space Xi. xindicates a state vector in X =×i∈NXi, the
+joint state space of the full system. xA indicates a state
+vector in X=×i∈AXi, the joint state space of the subset
+A. The probability that the entire system is in a state x
+at time tevolves according to a master equation:
+d
+dtpx(t) = Kx′
+x (t)px′(t) (1)
+This stochastic dynamics arises due to couplings of the
+system with a set of mechanisms V= {v1,v2,...,v M}. In
+general, each such mechanismvcouples to only a subset
+of the subsystems. We refer to the set of subsystems to
+which a mechanism vcouples as its puppet set, and write
+it as P(v) ⊆N.
+As an example, an MPP is a composite process where
+each mechanism couples to only one subsystem (al-
+though a single subsystem might be coupled to multiple
+mechanisms [1]). So in an MPP, the cardinality of every
+puppet set is 1.
+At any given time, a composite system changes state
+due to its interaction with at most one mechanism, just
+as with MPPs. Accordingly, the rate matrix of the overall
+system is a sum of mechanism-speciﬁc rate matrices:
+Kx′
+x (t) =
+∑
+v∈V
+δ
+x′
+N\P(v)
+xN\P(v) K
+x′
+P(v),x′
+N\P(v)
+xP(v),xN\P(v) (t) (2)
+:=
+∑
+v∈V
+Kx′
+x (v;t) (3)
+(Here and throughout, for any two variables, z,z′ con-
+tained in the same space,δz′
+z is the Kronecker delta func-
+tion that equals 1 when z′= z, and equals 0 otherwise).
+We can illustrate composite processes using a toy
+stochastic chemical reaction network (Fig. 1a) [5-
+7]. This network involves four co-evolving species
+{X1,X2,X3,X4} that change state according to three
+FIG. 1. Examples of systems whose dynamics can be modeled
+as composite processes. Each system consists of multiple sub-
+systems (blue circles). Mechanisms are denoted as r, and their
+puppet sets P(r) are indicated by translucent white bubbles.
+(a) An example stochastic chemical reaction network consists
+of four co-evolving species {X1,X2,X3,X4}that change state
+according to three chemical reactions{A,B,C}. (b) An example
+toy circuit consists of four conductors {1,2,3,4}that change
+state via interactions with three devices {A,B,C}.
+chemical reactions {A,B,C}(left). The system state is
+a vector consisting of the number of molecules of each
+species in the system. Only one reaction can occur at a
+time, but when a reaction does occur, multiple subsys-
+tems all change their state. For example, in the forward
+reaction A, species X1, X2, and X3 must change state
+at the same time, by counts of {−2,−1,+1}, respectively.
+Accordingly, this reaction network is not an MPP . How-
+ever, it is a composite process.
+We can illustrate this composite process in terms of
+the associated puppet sets (righthand side of ﬁgure).
+There are a total of three such puppet sets, one for each
+of the possible chemical reactions. These three puppet
+sets are indicated by translucent bubbles in the right-
+hand part of the ﬁgure. The mechanisms of the three
+puppet sets are denoted as rA, rB, and rC, and the pup-
+pet set of mechanism ris denoted as P(r).
+As another example, consider a toy electronic circuit
+(Fig. 1b) [8] consisting of four conductors (the four cir-
+cles in the left-hand side of the ﬁgure) and three devices
+(the three bidirectional arrows). The state of the system
+is a vector consisting of the voltage on each conductor.
+Two of the conductors (1 and 4) are "regulated", since
+they are tied directly to ﬁxed voltage sources ( V1 and
+V4). The other two conductors (2 and 3) are "free" to
+stochastically change state via the eﬀect of devices A, B,
+and C.
+The composite process capturing the dynamics of the
+state of this circuit is illustrated in the right-hand side of
+the ﬁgure. There are three puppet sets (each a translu-
+cent bubble), each corresponding to a mechanism asso-
+ciated with one of the devices in the system. The mech-
+anisms are denoted as rA, rB, and rC, and the puppet set
+of mechanism ris denoted as P(r).
+In an MPP, even though the mechanisms that a ﬀect
+the dynamics of any subsystem i do not a ﬀect the dy-
+namics of any other subsystem, in general the dynamics
+of i will depend on the states of some set of other sub-
+systems. For example, in a bipartite process [9], both of
+the subsystems can be modeled as having their own set
+of mechanisms, but each subsystem's dynamics is gov-
+erned by the state of the other subsystem as well as its
+own state.
+Similarly, in a composite process, the dynamics of
+each subsystem i can depend on the state of other sub-
+systems in addition to its own state. Each such de-
+pendency can be represented as an edge in a directed
+graph. In the resulting dependency network each edge
+j→imeans that the state of subsystem jaﬀects the rate
+of state transitions in subsystem i. We refer to the set of
+subsystems whose state aﬀects the dynamics of i as the
+leaders of i. So j →i means that j is a leader of i. In
+any dependency network, the leaders of each subsystem
+iare its parents, pa(i).
+The leader setfor a mechanism v is deﬁned to be the
+union of the leaders of each subsystem in the puppet set
+of v: L(v) = ⋃
+i∈P(v) pa(i). As an example, even though
+the puppet set of mechanism v2 in Fig. 2 is {A,C,D }, the
+leader set of v2 is {A,B,C,D }.
+FIG. 2. The dependency network speciﬁes how the dynam-
+ics of each subsystem is governed by the state of other sub-
+systems. This network deﬁnes the leader sets in a composite
+process.
+The leader set of any mechanism is a (perhaps proper)
+superset of its puppet set. Accordingly, we can write
+Kx′
+x (v;t) = K
+x′
+L(v),x′
+N\L(v)
+x′
+L(v)\P(v),xP(v),x′
+N\L(v)
+(v;t) (4)
+With abuse of notation, we can rewrite this in a way that
+explicitly embodies the fact that the instantaneous dy-
+namics of the puppet set P(v) depends at most on the
+state of the leader set L(v), and not on the state of any
+of the subsystems in N\L(v):
+K
+x′
+L(v)
+x′
+L(v)\P(v),xP(v)
+(v;t) := Kx′
+x (v;t) (5)
+A unit ω⊆N is a collection of subsystems such that as
+the full system's state evolves via a master equation ac-
+cording to K(t), the marginal distribution over the states
+of the unit also evolves according to its own CTMC:
+d
+dtpxω(t) = Kx′ω
+xω(ω;t)px′ω(t) (6)
+for some associated rate matrix K(ω;t). Intuitively, a
+unit is any set of subsystems whose evolution is inde-
+pendent of the states of the subsystems outside the unit.
+Typically, a unit is a union of leader sets. In such cases
+no subsystem in the unit has parents outside of the unit.
+Importantly though, this doesn't prevent there being a
+subsystem in the unit that is a leader for some sub-
+system outside of the unit. Informally speaking, the
+boundary of a unit in an dependency network can have
+outgoing edges, even though it cannot have any incom-
+ing edges.
+Any union of units is a unit, and any non-empty inter-
+section of units is a unit [4]. Note that the entire system
+Nitself is a unit. We denote the set of all units as N†.
+Since each separate unit evolves according to its own
+CTMC, all the usual theorems of stochastic thermody-
+namics apply to each unit separately. In particular, the
+Second Law [4] applies, as do the thermodynamic uncer-
+tainty relations [10-12], the speed limit theorems [13-
+15], the ﬂuctuation theorems [16], ﬁrst-passage time
+bounds and bounds on stopping times [17-19], etc.
+We highlight that for any pair of nested units ωand
+α⊆ω, it is true that [3, 4]:
+˙σω(t) ≥˙σα(t) (7)
+A set of units N∗is called a unit structureif it obeys
+the following properties [4]:
+• The union of the units in the set equals N.
+N∗= {ω1,ω2,...}:
+⋃
+ω∈N†
+ω= N
+• The set is closed under intersections of its units.
+∀(ω1,ω2) ∈(N∗)2 = ω1 ∩ω2 ∈N∗
+We deﬁne an inclusion-exclusion sum of a function
+fω evaluated on every unit ωin a unit structure N∗as
+ˆ∑
+ω∈N∗fω =
+∑
+ω′∈N∗
+fω′
+−
+∑
+ω′′∈N∗
+fω′′
++
+∑
+ω′′′∈N∗
+fω′′′
+−...
+(8)
+For example, the time- t inclusion-exclusion (or "in-
+ex" for short) information reads
+IN∗
+(t) :=
+(ˆ∑
+ω∈N∗Sω(t)
+)
+−SN∗
+(t) (9)
+Using the fact that the heat ﬂow into the unit struc-
+ture also decomposes into an in-ex sum, we can decom-
+pose the global EP incurred during a time period [0 ,τ]
+according to
+σN = ˆ∑
+ω∈N∗σω−∆IN∗
+(10)
+where ∆IN∗
+is the change in the in-ex information dur-
+ing the time period [0 ,τ]. For a detailed proof of the
+in-ex decomposition of the global EP, see [2, 3].
+One can use the in-ex sum decomposition of the EP
+in various ways depending on what degrees of freedom
+are accessible in the system of interest. For example,
+if one can calculate the mismatch cost [20, 21] λω for
+each unit in the unit structure, then the in-ex sum can
+be rewritten:
+σN = ˆ∑
+ω∈N∗λω+ ˆ∑
+ω∈N∗ξω−∆IN∗
+(11)
+where ξω = σω −λω is the "residual EP" due to every-
+thing aside from the mismatch cost.
+Additionally, a very large number of lower bounds
+can be obtained on the global EP by replacing any posi-
+tive σω (or any such set of them) in the in-ex sum with
+any lower bound (e.g., TUR, SLT, etc.) on the value of
+that unit's EP . (See [2] for examples in the special case of
+MPPs.)
+B. Decomposition of thermodynamic and dynamical
+quantities in composite processes
+Since the entire systemNis itself a unit, we will write
+all our results in terms of units for the rest of the paper.
+The rate matrix of each unit ω in a composite pro-
+cess decomposes into rate matrices from each mecha-
+nism whose leader set is a subset of ω:
+Kx′ω
+xω(ω;t) =
+∑
+v:L(v)⊆ω
+δ
+x′
+ω\L(v)
+xω\L(v) K
+x′
+L(v),x′
+ω\L(v)
+xL(v),xω\L(v) (t) (12)
+=
+∑
+v:L(v)⊆ω
+Kx′ω
+xω(v;t) (13)
+Similarly, we can decompose the EP rate of any unitω:
+˙σω(t) =
+∑
+v:L(v)⊆ω,
+x′ω,xω̸=x′ω
+Kx′ω
+xω(v;t)px′ω(t)ln
+
+
+Kx′ω
+xω(v;t)px′ω(t)
+Kxω
+x′ω
+(v;t)pxω(t)
+
+ (14)
+=
+∑
+v:L(v)⊆ω
+˙ζv
+ω(t) (15)
+into contributions ˙ζv
+ω(t) from each mechanism whose
+leader set is a subset of ω. In particular, since the entire
+system is a unit whose state transitions are mediated by
+every mechanism v∈V, the global EP rate decomposes
+as ˙σN(t) = ∑
+v ˙ζv
+N(t).
+A unit's dynamical activity also decomposes:
+Aω(t) =
+∑
+v:L(v)⊆ω,
+x′ω,xω̸=x′ω
+Kx′ω
+xω(v;t)px′ω(t) =
+∑
+v:L(v)⊆ω
+A(v;t) (16)
+Similarly, the entire system's dynamical activity can be
+decomposed as AN(t) = ∑
+vA(v;t). Note that the dy-
+namics of every pair of nested units ω,α ⊆ω must
+be consistent with one another [4], which means that
+Aα(v;t) = Aω(v;t) = A(v;t) for all αand ω.
+We denote the probability ﬂow from x′
+ω →xω due to
+mechanism vas Ax′ω
+xω(v;t) = Kx′ω
+xω(v;t)px′ω(t). We write the
+net probability current from x′
+ω →xω due to mechanism
+vas Jx′ω
+xω(v;t) = Ax′ω
+xω(v;t) −Axω
+x′ω
+(v;t). The total net proba-
+bility current from x′ω →xω equals the sum of the prob-
+ability currents due to each mechanism whose leader set
+is a subset of the unit ω:
+Jx′ω
+xω(t) =
+∑
+v:L(v)⊆ω
+Jx′ω
+xω(v;t) (17)
+Accordingly, we can decompose the master equation for
+the unit ω into probability currents induced by each
+mechanism:
+d
+dtpxω(t) =
+∑
+v:L(v)⊆ω,
+x′ω̸=xω
+Kx′ω
+xω(v;t)px′ω(t) =
+∑
+v:L(v)⊆ω,
+x′ω
+Jx′ω
+xω(v;t)
+(18)
+II. THERMODYNAMIC UNCERTAINTY RELATIONS
+FOR COMPOSITE PROCESSES
+For any unit ωthat is in an NESS, any linear function
+of probability currents Cω is a current. It can be divided
+into contributions from each mechanism:
+˙Cω =
+∑
+x′ω,xω>x′ω
+Jx′ω
+xωCx′ω
+xω (19)
+=
+∑
+v:L(v)⊆ω,
+x′ω,xω>x′ω
+Jx′ω
+xω(v)Cx′ω
+xω (20)
+=
+∑
+v:L(v)⊆ω
+˙Cω(v) (21)
+where Cx′ω
+xω = −Cxω
+x′ω
+is some anti-symmetric function of
+state transitions, and we have dropped the time depen-
+dence in the steady state.
+Importantly, the current contribution from each
+mechanism ˙Cω(v) is itself a current. So all of the ther-
+modynamic uncertainty relations (TURs) hold for the
+time-integrated version of any such mechanism-speciﬁc
+current. In an NESS running for a time period of length
+τ, this mechanism-speciﬁc time-integrated current is
+Cω(v) = τ˙Cω(v). Additionally, since every unit evolves
+according to its own CTMC, the TURs hold for each
+unit.
+For example, the ﬁnite-time TUR bounds the preci-
+sion of any current in a CTMC with respect to its EP
+rate [10, 22]. For a composite process, this holds for any
+unit and any arbitrary time-integrated current:
+σω ≥2⟨Cω⟩2
+Var(Cω
+(22)
+Additionally, for any mechanism v : L(v) ⊆ω and any
+associated current Cω(v),
+σω ≥ 2⟨Cω(v)⟩2
+Var(Cω(v)) (23)
+The vector-valued TUR following [11] holds for a vec-
+tor ˙Cω of any set of (potentially mechanism-speciﬁc)
+currents {˙Cω}that are not linearly dependent:
+˙CT
+ωΞ−1
+ω ˙Cω ≤ ˙σω
+2τ (24)
+where Ξ−1
+ω is the inverse of the covariance matrix of the
+associated time-integrated currents {Cω}.
+Any of these TURs can be useful to bound the entropy
+production when one has limited access to the system in
+the sense that one can measure state transitions i) due
+only to some subset of the mechanisms inﬂuencing the
+system or state transitions or ii) involving some subset
+of units in the system.
+A. Information Flow TURs
+One important quantity in an MPP is information
+ﬂow [1, 9, 23]. Here, we extend the concept of infor-
+mation ﬂow to composite processes. For any unit ω in
+an NESS, a set of subsystems A⊂ω, and a set of subsys-
+tems B⊂ω(for which A∩B= ∅), the information ﬂow
+is the rate of decrease in the conditional entropy of the
+state of Bgiven the state of A, due to state transitions in
+A:
+˙IA→B =
+∑
+x′ω,xω>x′ω
+Jx′ω
+xωδ
+x′
+ω\A
+xω\A ln pxB|xA
+pxB|x′
+A
+(25)
+So, when ωis in an NESS, the information ﬂow is a cur-
+rent for which Cx′ω
+xω = C
+x′
+ω\A,x′
+A
+xω\A,xA = δ
+x′
+ω\A
+xω\A ln
+pxB|xA
+pxB|x′
+A
+. The con-
+tribution to that information ﬂow that is due to interac-
+tions of the unit with reservoir v : L(v) ⊆ω is itself an
+information ﬂow
+˙IA→B(v) =
+∑
+x′ω,xω>x′ω
+Jx′ω
+xω(v)δ
+x′
+ω\A
+xω\A ln pxB|xA
+pxB|x′
+A
+(26)
+Since these information ﬂows are currents, the TURs
+will apply to them. This observation in combination
+with Eq. (7) suggests that the precision of an informa-
+tion ﬂow is (best) bounded by the reciprocal of the en-
+tropy production of the smallest unit which contains
+A∪B.
+III. STRENGTHENED THERMODYNAMIC SPEED
+LIMITS FOR COMPOSITE PROCESSES
+Here we derive a speed limit similar to the one in [15],
+but for composite processes. This speed limit is tighter
+than the one presented in that paper. Our analysis will
+hold for an arbitrary unit ω(which could be the entire
+system Nitself):
+lω ≤
+∑
+v:L(v)⊆ω
+Atot
+ω (v;τ)f
+( ζv
+ω(τ)
+Atotω (v;τ)
+)
+(27)
+where the dynamics occurs during the time period [0,τ].
+Additionally, lω is the total variation distance between
+the initial (time-0) and ﬁnal (time- τ) probability distri-
+butions over states of the unit ω. Atotω (v;τ) is the total
+time-integrated dynamical activity due to mechanismv.
+ζvω(τ) is the total contribution to the entropy production
+of unit ωdue to interactions of ωwith mechanism v.
+We start by bounding the total variation distance be-
+tween the initial and ﬁnal (time-τ) probability distribu-
+tions over states of the unit ω:
+lω := L(pxω(0),pxω(τ)) = 1
+∑
+xω
+⏐⏐⏐pxω(τ) −pxω(0)
+⏐⏐⏐ (28)
+= 1
+∑
+xω
+⏐⏐⏐⏐⏐
+∫ τ
+dt d
+dtpxω(t)
+⏐⏐⏐⏐⏐ (29)
+≤1
+∫ τ
+dt
+∑
+xω
+⏐⏐⏐⏐⏐
+d
+dtpxω(t)
+⏐⏐⏐⏐⏐ (30)
+In a composite process, we can further bound the inte-
+grand:
+∑
+xω
+⏐⏐⏐⏐⏐
+d
+dtpxω(t)
+⏐⏐⏐⏐⏐ =
+∑
+xω
+⏐⏐⏐⏐⏐⏐⏐⏐
+∑
+v:L(v)⊆ω
+∑
+x′ω̸=xω
+Jx′ω
+xω(v;t)
+⏐⏐⏐⏐⏐⏐⏐⏐
+(31)
+≤
+∑
+v:L(v)⊆ω
+∑
+xω,x′ω̸=xω
+⏐⏐⏐⏐Jx′ω
+xω(v;t)
+⏐⏐⏐⏐ (32)
+We write the time- t "conditional probability distribu-
+tion" of the forward process, under the counterfactual
+scenario that the process evolves with coupling only to
+mechanism v: L(v) ⊆ωas
+Wx′ω
+xω (v;t) = (1 −δx′ω
+xω)Kx′ω
+xω(v;t)px′ω(t)
+Aω(v;t) (33)
+Intuitively, this can be interpreted as a conditional prob-
+ability that if a jump occurs at tdue reservoir v: L(v) ⊆
+ω, that the state before the jump was x′ω and the state
+afterwards was xω We write the same quantity for the
+reverse process as
+˜Wx′ω
+xω (t) =
+(1 −δxω
+x′ω
+)Kxω
+x′ω
+(v;t)pxω(t)
+Aω(v;t) (34)
+The total variation distance between these matrices
+dTV(Wω(v;t),˜Wω(v;t)) represents how irreversible this
+counterfactual process (the one driven only by mech-
+anism v) is at time t. Using these deﬁnitions, we can
+rewrite Eq. (32) as
+∑
+xω
+⏐⏐⏐⏐⏐
+d
+dtpxω(t)
+⏐⏐⏐⏐⏐ ≤2
+∑
+v:L(v)⊆ω
+Aω(v;t)dTV(Wω(v;t),˜Wω(v;t))
+(35)
+Plugging into Eq. (30), we obtain
+lω ≤
+∫ τ
+dt
+∑
+v:L(v)⊆ω
+Aω(v;t)dTV(Wω(v;t),˜Wω(v;t)) (36)
+We next make use of the fact that mechanismv's con-
+tribution to the EP rate of unit ω(Eq. (15)) can be writ-
+ten in terms of the Kullback-Leibler (KL) divergence be-
+tween the conditional distributions of the forward and
+backward processes as
+˙ζv
+ω(t) = Aω(v;t)DKL(Wω(v;t),˜Wω(v;t)) (37)
+Any positive monotonic concave function f relates the
+total variation distance to the KL divergence [15] ac-
+cording to:
+dTV(p;q) ≤f(DKL(p;q)) (38)
+We can use this relationship to relate Eq. (37) to lω.
+Combining Eqs. (36) to (38),
+lω ≤
+∫ τ
+dt
+∑
+v:L(v)⊆ω
+Aω(v;t)f
+( ˙ζvω(t)
+Aω(v;t)
+)
+(39)
+Next deﬁne ζv
+ω =
+∫τ
+0 dt˙ζv
+ω(t) as the total (ensemble-
+average) contribution to the EP of unit ωcaused by an
+interaction of the system with mechanism v during the
+time period [0 ,τ]. Also deﬁne Atotω (v;τ) =
+∫τ
+0 dtAω(v;t)
+as the total (ensemble-average) number of state transi-
+tions in the unit ωthat are caused by an interaction of
+the system with mechanism v. Then using the positivity
+of the dynamical activity and of the EP, together with
+the concavity of f, we can further bound the right hand
+side to obtain a general limit for composite processes:
+lω ≤
+∑
+v:L(v)⊆ω
+Atot
+ω (v;τ)f
+( ζvω(τ)
+Atotω (v;τ)
+)
+(40)
+This result provides an upper bound on how much lω
+can change during the time interval [0 ,τ], in terms of
+the associated activity of ωand the contribution of ωto
+EP . So Eq. (40) is a thermodynamic speed limit theorem,
+involving
+By comparison, the speed limit in [15] applied to a
+unit ωreads
+lω ≤Atot
+ω (τ)f
+( σω(τ)
+Atotω (τ)
+)
+(41)
+For a composite process, the right hand side of this
+"global" bound expands to
+lω ≤
+
+
+∑
+v:L(v)⊆ω
+Atot
+ω (v;τ)
+
+ f
+
+
+∑
+v:L(v)⊆ωζv
+ω(τ)
+∑
+v:L(v)⊆ωAtotω (v;τ)
+
+ (42)
+By Jensen's inequality, the speed limit for compos-
+ite processes (Eq. (40)) is always tighter than the speed
+limit provided by [15] (Eq. (41)). For a concave func-
+tion f, a set of numbers a xv in its domain, and positive
+weights av, Jensen's inequality states that
+
+
+∑
+v
+av
+
+f
+(∑
+vavxv∑
+vav
+)
+≥
+∑
+v
+avf(xv) (43)
+Setting av = Atotω (v;τ) and xv = ζvω(τ)
+Atotω (v;τ) proves that
+Eq. (40)) is always tighter than Eq. (41). Intuitively,
+this occurs because we're able to deﬁne the mechanism-
+speciﬁc contributions to the EP and activity in a com-
+posite process.
+[15] provides some examples of acceptable functions
+f. For example, if we follow Pinsker's inequality and
+choose f =
+√x
+2 , then the speed limit provided by [15]
+collapses to the speed limit derived in [13]. If we plug
+in this choice of f to Eq. (40), extract the parameter
+τ by using the average frequency of state transitions
+⟨Aω(v)⟩τ = Atotω (v;τ)
+τ , and rearrange terms, we obtain
+∀ω∈N†: τ≥ (L(pxω(0),pxω(τ)))2
+(∑
+v:L(v)⊆ω
+√
+ζvω(τ)⟨Avω⟩τ
+)2 (44)
+the tightest of which is given by:
+τ≥max
+ω∈N†
+(L(pxω(0),pxω(τ)))2
+(∑
+v:L(v)⊆ω
+√
+ζvω(τ)⟨Av⟩τ
+)2 (45)
+This particular speed limit tells us that speed of the evo-
+lution of the system's probability distribution cannot be
+greater than the speed of evolution of the distribution
+over the coordinates of the "slowest-evolving" unit.
+IV. DISCUSSION
+Here we have introduced the stochastic thermody-
+namics of composite processes. This work presents a
+preliminary analysis of how information ﬂows in a com-
+posite process are constrained by the entropy produc-
+tions of units. It also demonstrates that bounds on the
+speed of transforming a system's probability distribu-
+tion over states can be tightened with knowledge of the
+contributions to the entropy production and dynamical
+activity from each mechanism with which the system
+interacts.
+This work ﬁts into a growing branch of research on
+the stochastic thermodynamics of constraints. One ex-
+ample of research in this area investigates the e ﬀect of
+constraints on the control protocol (time sequence of
+rate matrices evolving the probability distribution) [24]
+There has also been some important work where the
+"constraint" on such a many-degree-of-freedom clas-
+sical system is simply that it be some very narrowly
+deﬁned type of system, whose dynamics is speciﬁed
+by many di ﬀerent kinds of parameters. For example,
+there has been analysis of the stochastic thermodynam-
+ics of chemical reaction networks [6, 7], of electronic
+circuits [8, 25, 26], and of biological copying mecha-
+nisms [27]. This work analyzes the consequences of a
+major class of dynamical constraints that arises because
+many of these systems are most naturally modelled as a
+set of multiple co-evolving subsystems [1-4, 9, 28-30].
+In particular, the main constraints on such systems are
+that only certain subsets of subsystems can simultane-
+ously change state a given time, and the dependencies
+between subsystems impose restrictions on their joint
+dynamics.
+There remain many avenues of potential future
+work, especially in the thermodynamics of computa-
+tion. Many computational processes consist of multiple,
+co-evolving systems with the broad set of constraints
+that allow them to be easily modeled as a composite pro-
+cess. Research in this direction would ﬁrst require for-
+malizing the notion of computation in a composite pro-
+cess. One such computation, which equates to the iden-
+tity map, is simply communication (information trans-
+mission). One could extend the recent study on the fun-
+damental thermodynamic costs of communication [31]
+to tie Shannon information theory to the stochastic ther-
+modynamics of composite processes. More generally,
+for any given computation, one could analyze the trade-
+oﬀs between the energy cost required to implement that
+computation and the performance (accuracy, time, etc.)
+of a composite process. In particular, there could be rich
+structure in how the properties of the dependency net-
+work in a composite process aﬀects these trade-oﬀs.
+V. ACKNOWLEDGEMENTS
+This work was supported by the MIT Media Lab Con-
+sortium, Santa Fe Institute, US NSF EAGER Grant CCF-
+2221345. F.T. and D.H.W. thank Tarek Tohme for ini-
+tial discussions regarding TURs for information ﬂows
+in multipartite processes. F.T. thanks Nahuel Freitas for
+discussions regarding how circuits can be modeled as
+composite processes.
+[1] J. M. Horowitz, Multipartite information ﬂow for mul-
+tiple maxwell demons, Journal of Statistical Mechanics:
+Theory and Experiment 2015, P03006 (2015).
+[2] D. H. Wolpert, Combining lower bounds on entropy pro-
+duction in complex systems with multiple interacting
+components, in Frontiers in Entropy Across the Disciplines:
+Panorama of Entropy: Theory, Computation, and Applica-
+tions (World Scientiﬁc, 2023) pp. 405-453.
+[3] D. H. Wolpert, Minimal entropy production rate of in-
+teracting systems, New Journal of Physics 22, 113013
+(2020).
+[4] D. H. Wolpert, Strengthened landauer bound for compos-
+ite systems, arXiV (2020).
+[5] A. Wachtel, R. Rao, and M. Esposito, Thermodynami-
+cally consistent coarse graining of biocatalysts beyond
+michaelis-menten, New Journal of Physics 20, 042002
+(2018).
+[6] R. Rao and M. Esposito, Nonequilibrium thermodynam-
+ics of chemical reaction networks: wisdom from stochas-
+tic thermodynamics, Physical Review X6, 041064 (2016).
+[7] R. Rao and M. Esposito, Conservation laws and work ﬂuc-
+tuation relations in chemical reaction networks, The Jour-
+nal of chemical physics 149, 245101 (2018).
+[8] N. Freitas, J.-C. Delvenne, and M. Esposito, Stochastic
+thermodynamics of non-linear electronic circuits: A re-
+alistic framework for thermodynamics of computation,
+arXiv preprint arXiv:2008.10578 (2020).
+[9] J. M. Horowitz and M. Esposito, Thermodynamics with
+continuous information ﬂow, Physical Review X 4,
+031015 (2014).
+[10] J. M. Horowitz and T. R. Gingrich, Proof of the ﬁnite-time
+thermodynamic uncertainty relation for steady-state cur-
+rents, Physical Review E 96, 020103 (2017).
+[11] A. Dechant, Multidimensional thermodynamic uncer-
+tainty relations, Journal of Physics A: Mathematical and
+Theoretical 52, 035001 (2018).
+[12] Y. Hasegawa and T. Van Vu, Fluctuation theorem un-
+certainty relation, Physical review letters 123, 110602
+(2019).
+[13] N. Shiraishi, K. Funo, and K. Saito, Speed limit for clas-
+sical stochastic processes, Physical Review Letters 121,
+10.1103/physrevlett.121.070601 (2018).
+[14] N. Shiraishi and K. Saito, Speed limit for open systems
+coupled to general environments, Physical Review Re-
+search 3, 023074 (2021).
+[15] J. S. Lee, S. Lee, H. Kwon, and H. Park, Speed limit
+for a highly irreversible process and tight ﬁnite-time
+landauer's bound, Physical review letters 129, 120603
+(2022).
+[16] R. Rao and M. Esposito, Detailed ﬂuctuation theorems: A
+unifying perspective, Entropy 20, 635 (2018).
+[17] T. R. Gingrich and J. M. Horowitz, Fundamental bounds
+on ﬁrst passage time ﬂuctuations for currents, Physical
+review letters 119, 170601 (2017).
+[18] I. Neri, É. Roldán, and F. Jülicher, Statistics of inﬁma and
+stopping times of entropy production and applications to
+active molecular processes, Physical Review X 7, 011019
+(2017).
+[19] I. Neri, É. Roldán, S. Pigolotti, and F. Jülicher, Integral
+ﬂuctuation relations for entropy production at stopping
+times, Journal of Statistical Mechanics: Theory and Ex-
+periment 2019, 104006 (2019).
+[20] A. Kolchinsky and D. H. Wolpert, Dependence of dissipa-
+tion on the initial distribution over states, Journal of Sta-
+tistical Mechanics: Theory and Experiment 2017, 083202
+(2017).
+[21] A. Kolchinsky and D. H. Wolpert, Dependence of inte-
+grated, instantaneous, and ﬂuctuating entropy produc-
+tion on the initial state in quantum and classical pro-
+cesses, Physical Review E 104, 054107 (2021).
+[22] P . Pietzonka, F. Ritort, and U. Seifert, Finite-time general-
+ization of the thermodynamic uncertainty relation, Phys-
+ical Review E 96, 012101 (2017).
+[23] D. Hartich, A. C. Barato, and U. Seifert, Sensory capac-
+ity: An information theoretical measure of the perfor-
+mance of a sensor, Physical Review E 93, 10.1103/phys-
+reve.93.022116 (2016).
+[24] A. Kolchinsky and D. H. Wolpert, Entropy production
+and thermodynamics of information under protocol con-
+straints, arXiv preprint arXiv:2008.10764 (2020).
+[25] C. Y. Gao and D. T. Limmer, Principles of low dissipa-
+tion computing from a stochastic circuit model, arXiv
+preprint arXiv:2102.13067 (2021).
+[26] D. H. Wolpert and A. Kolchinsky, Thermodynamics of
+computing with circuits, New Journal of Physics 22,
+063047 (2020).
+[27] J. M. Poulton, P . R. Ten Wolde, and T. E. Ouldridge,
+Nonequilibrium correlations in minimal dynamical mod-
+els of polymer copying, Proceedings of the National
+Academy of Sciences 116, 1946 (2019).
+[28] R. M. D'Souza, Structure comes to random graphs, Na-
+ture Physics 5, 627 (2009).
+[29] S. Ito and T. Sagawa, Information thermodynamics on
+causal networks, Physical Review Letters 111, 180603
+(2013).
+[30] D. H. Wolpert, Uncertainty relations and ﬂuctuation
+theorems for bayes nets, Physical Review Letters 125,
+10.1103/physrevlett.125.200602 (2020).
+[31] F. Tasnim, N. Freitas, and D. H. Wolpert, The funda-
+mental thermodynamic costs of communication, arXiv
+preprint arXiv:2302.04320 (2023).

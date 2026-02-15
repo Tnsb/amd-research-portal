@@ -1,0 +1,1160 @@
+An Examination of the Robustness of Reference-Free Image Captioning
+Evaluation Metrics
+Saba Ahmadi
+Mila
+Université de Montréal
+saba.ahmadi@mila.quebec
+Aishwarya Agrawal
+Mila
+Université de Montréal
+Canada CIFAR AI Chair
+aishwarya.agrawal@mila.quebec
+Abstract
+Recently, reference-free metrics such as CLIP-
+Score (Hessel et al., 2021), UMIC (Lee et al.,
+2021), and PAC-S (Sarto et al., 2023) have been
+proposed for automatic reference-free evalua-
+tion of image captions. Our focus lies in eval-
+uating the robustness of these metrics in sce-
+narios that require distinguishing between two
+captions with high lexical overlap but very dif-
+ferent meanings. Our findings reveal that de-
+spite their high correlation with human judg-
+ments, CLIPScore, UMIC, and PAC-S struggle
+to identify fine-grained errors. While all met-
+rics exhibit strong sensitivity to visual ground-
+ing errors, their sensitivity to caption implausi-
+bility errors is limited. Furthermore, we found
+that all metrics are sensitive to variations in the
+size of image-relevant objects mentioned in the
+caption, while CLIPScore and PAC-S are also
+sensitive to the number of mentions of image-
+relevant objects in the caption. Regarding lin-
+guistic aspects of a caption, all metrics show
+weak comprehension of negation, and CLIP-
+Score and PAC-S are insensitive to the struc-
+ture of the caption to a great extent. We hope
+our findings will guide further improvements
+in reference-free evaluation of image caption-
+ing. Our code and dataset are publicly available
+at: https://github.com/saba96/img-cap-metrics-
+robustness.
+1 Introduction
+Image caption quality has been traditionally eval-
+uated using a reference-based approach, with met-
+rics like BLEU (Papineni et al., 2002), ROUGE
+(Lin, 2004), METEOR (Banerjee and Lavie, 2005),
+and CIDEr (Vedantam et al., 2014) assessing the
+lexical overlap between generated and reference
+captions. However, this approach is restrictive as
+the set of references may not capture the full range
+of valid captions, and furthermore, lexical overlap-
+based metrics tend to favor captions with similar vo-
+cabulary but different meanings. To address these
+limitations, recent studies like CLIPScore (Hessel
+.
+Figure 1: Recently proposed reference-free image cap-
+tioning evaluation metrics such as CLIPScore, UMIC,
+and PAC-S are far from perfect. This figure shows
+how these metrics cannot tell apart an incorrect caption
+(shown in red) from a correct caption when there is a
+high lexical overlap between them.
+et al., 2021), UMIC (Lee et al., 2021) and PAC-S
+(Sarto et al., 2023) have proposed reference-free
+approaches for evaluating image caption quality,
+which more closely aligns with human judgments.
+These approaches leverage large pretrained image-
+text matching models to measure the similarity be-
+tween a given image and a candidate caption. How-
+ever, the evaluation benchmarks for these metrics
+do not necessarily involve differentiating between
+captions with significant lexical overlap but vastly
+different meanings (Fig. 1). In this work, we evalu-
+ate the robustness of these reference-free metrics
+in scenarios where the correct and incorrect cap-
+tions have high lexical overlap. To our surprise,
+we found that all metrics fail to distinguish be-
+tween correct and incorrect captions ∼46% of
+the time.
+In a pursuit to identify what aspects of a cap-
+tion (e.g., plausibility, visual grounding, number
+and size of objects mentioned in the caption, nega-
+tion and sentence structure) these metrics are most
+sensitive to, we conduct several controlled exper-
+iments, varying one aspect at a time. We found
+that:
+• All metrics show limited sensitivity to caption
+implausibility errors but a heightened sensitiv-
+ity to visual grounding errors.
+arXiv:2305.14998v2 [cs.CL] 6 Feb 2024
+• CLIPScore and PAC-S show high sensitivity
+to the number of image-relevant objects men-
+tioned in the caption while UMIC shows lim-
+ited sensitivity.
+• All metrics are sensitive to the size of image-
+relevant objects mentioned in the caption.
+• All metrics exhibit a weak understanding of
+negation.
+• UMIC is sensitive to sentence structure,
+whereas CLIPScore and PAC-S demonstrate
+limited sensitivity.
+• UMIC prioritizes correct sentence structure
+over mentions of larger objects or number of
+objection mentions in captions, whereas CLIP-
+Score and PAC-S exhibit the opposite behav-
+ior.
+Our primary contribution is highlighting specific
+areas where reference-free metrics exhibit limita-
+tions so that caution can be exercised when using
+these metrics for image captioning evaluation. We
+hope our findings will guide further improvements
+in reference-free evaluation of image captioning.
+2 Related Works
+Reference-free metrics: We study the robustness
+of CLIPScore (Hessel et al., 2021), UMIC (Lee
+et al., 2021) and PAC-S (Sarto et al., 2023). CLIP-
+Score measures the similarity between the image
+and the candidate caption using a scaled cosine
+similarity of the image and text representations
+from the CLIP (Radford et al., 2021) model. On
+the other hand, UMIC utilizes the UNITER (Chen
+et al., 2020) model, which is pretrained to align im-
+age and text pairs, and finetunes it via contrastive
+learning to distinguish reference captions from its
+hard negatives. PAC-S (Sarto et al., 2023) intro-
+duces a novel metric that strategically curates pos-
+itive pairs for contrastive learning, enhancing the
+multimodal embedding space of CLIP. PAC-S em-
+ploys scaled cosine similarity, akin to CLIPScore,
+to evaluate the similarity between the candidate
+caption and the provided image. SMURF (Fein-
+glass and Yang, 2021) is another recently proposed
+metric for image caption evaluation, which has
+a reference-free evaluation of the fluency of the
+caption; however, the evaluation of the semantic
+correctness of the caption is still reference-based.
+Also, InfoMetIC (Hu et al., 2023) has the capability
+Long Answer: The color of the shirt this tennis player is
+wearing is red.
+Completed
+By Model
+Please summarize the question and answer in one sentence.
+Question: What color is the table?
+Answer: brown
+Long answer: The color of table is brown.
+Question: What color is the front of the train?
+Answer: red and black
+Long Answer: The color of the front of the train is red and black.
+Support
+Examples
+Question: What color of shirt is this tennis player
+wearing?
+Answer: redPrompt
+Figure 2: Generating caption-like sentences by trans-
+forming visual question-answer pairs using GPT-J.
+to pinpoint incorrect words and overlooked image
+areas at a fine-grained level while also providing
+an overall quality score at a coarse-grained level.
+Vision-language benchmarks: Recently, a
+number of vision-language benchmarks have been
+proposed to evaluate the fine-grained understanding
+of relations, attributes, actions, and visio-linguistic
+compositionality in vision-language models, such
+as CAB (Yamada et al., 2022), Winoground
+(Thrush et al., 2022), ARO (Yuksekgonul et al.,
+2023), VL-checklist (Zhao et al., 2022), CREPE
+(Ma et al., 2023) and V ALSE (Parcalabescu et al.,
+2022). Although these evaluations also highlight
+the limitations of current models towards fine-
+grained understanding, our focus is specifically
+on evaluating the robustness of recently proposed
+reference-free image-captioning metrics. Our goal
+is to identify the scenarios where these metrics fail
+to distinguish between correct and incorrect cap-
+tions to ensure the cautious use of these metrics in
+such scenarios.
+3 Datasets Used to Conduct the
+Examination
+3.1 Dataset Creation
+To conduct our examination of the robustness of
+the metrics, we use a dataset of generated image
+captions. We generate image captions in one of the
+following ways, depending on the question we are
+trying to answer (see section 4 for more details):
+QA to caption conversion : We employ GPT-
+J prompting to transform visual question-answer
+pairs into caption-like sentences. We use the ques-
+tions from the popular VQAv2 (Goyal et al., 2016)
+dataset, and the answers could either be ground-
+truth answers or model-generated, depending on
+the analysis. Figure 2 shows an example caption-
+like sentence generated by GPT-J along with the
+prompt and support examples. The support exam-
+ples are specific to the question type of the input
+question. More details about support example se-
+lection can be found in Appendix A.1.
+To clarify the motivation to generate captions
+in this manner, it is essential to outline the limita-
+tions of existing captioning datasets such as FOIL
+(Shekhar et al., 2017), ARO, and Winoground.
+These datasets mostly rely on modifying ground-
+truth captions by shuffling or swapping words to
+create incorrect captions. While these evaluation
+methods offer valuable insights, they are limited
+in their ability to comprehensively assess image-
+captioning metrics as these incorrect captions are
+out-of-distribution and easy for models to identify
+as incorrect (Hsieh et al., 2023).
+For our study, we generate captions from VQA
+question-answer pairs instead of using these exist-
+ing datasets for two primary reasons. Firstly, lever-
+aging the VQAv2 dataset facilitates a comprehen-
+sive evaluation of image-captioning metrics' robust-
+ness across various skills, such as color recognition,
+counting, etc. Moreover, using model-generated
+answers to create incorrect captions helps us con-
+struct a dataset that mirrors real-world use cases
+of image captioning metrics, i.e., using metrics to
+evaluate model-generated responses (note that the
+VQA answers are obtained from a model that was
+first pretrained for image captioning and then fine-
+tuned for VQA). Specifically, the incorrect captions
+generated using our approach contain plausible er-
+rors. This is attributed to the model's tendency to
+produce reasonable responses, such as providing
+a color for a color-related question or a numerical
+answer for a counting inquiry. Furthermore, the
+model typically generates answers that are visually
+relevant to the image, even if they do not precisely
+match the query. For example, for an image con-
+taining a person wearing yellow pants and a red car,
+the model might incorrectly respond with "red." to
+a question asking about the color of the pants. Thus,
+our dataset holds value as the generated captions
+are plausible as well as contain visually relevant
+errors. For a detailed comparison of our dataset
+with FOIl, ARO, and Winoground, please refer to
+Appendix A.2.
+Caption templates : To conduct a controlled
+study of robustness of image captioning metrics
+towards specific factors such as number and size
+of objects mentioned in the caption, we gener-
+ate captions using templates in the format of the
+"There is a/an [object name].". We utilized
+the COCO detection dataset (Lin et al., 2014) to
+extract the names of objects in each image. This
+dataset provides object tags across 90 categories
+and attributes like objects' areas. The sentence con-
+struction process is elaborated within each baseline
+description.
+We will make the dataset containing all the gen-
+erated captions publicly available for the purpose
+of reproducibility and future use by the community.
+3.2 Dataset Analysis
+We conduct the following analyses of our generated
+captions dataset:
+Human verification: We collected human an-
+notations for 2000 captions: 1000 corresponding
+to correct VQA answers and 1000 incorrect ones.
+We asked five workers to determine whether the
+sentence is correct or incorrect. If it is incorrect,
+we additionally asked them to identify all relevant
+issues: 1) it is grammatically incorrect, 2) it is in-
+complete, i.e., it misses some information present
+in the original question-answer pair, 3) it hallu-
+cinates information, i.e., it contains information
+not present in the original question-answer pair or
+misrepresents information present in the question-
+answer pair. The majority voting across the work-
+ers' responses for each caption indicated that 255
+instances were incorrect. Among these, 30 cap-
+tions were identified as grammatically incorrect,
+24 captions were deemed incomplete, and 17 cap-
+tions were flagged for hallucinating information,
+where a caption was counted towards a particular
+incorrectness category if at least two annotators
+voted for that category.
+We extended this analysis to 100 randomly sam-
+pled captions generated using the caption template
+method, and all samples were found to be correct,
+benefiting from their straightforward format.
+Comparing generated captions with human
+written captions: For the captions generated using
+the QA to caption conversionmethod, it is worth
+asking how the distribution of such captions com-
+pares with that of human written captions in exist-
+ing datasets, such as, COCO captions (Chen et al.,
+2015). To throw light on this, we refer to (An-
+tol et al., 2015) where they compared the distribu-
+tions of nouns, verbs, and adjectives mentioned in
+COCO captions with those mentioned in the VQA
+questions and answers, and found that they are
+statistically significantly different from each other
+(Kolmogorov-Smirnov test, p < 0.001). Conse-
+quently, we expect the captions generated through
+our QA to caption conversionmethod to exhibit dif-
+ferent distributions of nouns, verbs, and adjectives
+compared to the human-written captions. How-
+ever, (Antol et al., 2015) also show that the VQA
+questions and answers require a deeper understand-
+ing of images beyond what (human written) image
+captions typically capture. Thus, in spite of the
+differing word distributions between our generated
+captions and human written captions, we posit that
+our captions can be extremely valuable in stress
+testing the robustness of image caption evalua-
+tion metrics.
+4 Experiments and Results
+Preliminary experiment: First, we describe our
+preliminary experiment that served as a motiva-
+tion for the rest of the study. We were interested
+in examining how different the scores assigned
+by reference-free image captioning metrics are for
+correct/incorrect captions created by converting
+questions and correct/incorrect answers from the
+VQAv2 dataset to caption-like sentences. Cap-
+tions generated in this way are unique in that even
+for incorrect captions, a significant portion of it
+(corresponding to the question part) is still correct.
+Thus, such a dataset of captions serves as a good
+stress testdataset for examining the robustness of
+reference-free image captioning metrics.
+To obtain correct and incorrect answers, we ob-
+tained predictions from the ALBEF (Li et al., 2021)
+visual question answering model on the validation
+splits of the VQAv2(Goyal et al., 2016) dataset.
+We fine-tuned ALBEF on this dataset and con-
+ducted IID evaluation. We then converted each
+question and its corresponding ALBEF answer into
+a caption-like sentence as described in Section 3.
+We only use answers that match with either three
+or more human answers (and we classify them as
+correct answers) or that do not match with any hu-
+man answers (and we classify them as incorrect
+answers), resulting in a total of 179,297 answers
+(43389 incorrect and 135908 correct). The his-
+tograms of results for the VQAv2 dataset are pre-
+sented in Figure 3. We see a significant overlap
+between the distributions of scores for correct and
+incorrect captions for all metrics, highlighting the
+Answer Type CLIPScore UMIC PAC-S
+VQAv2- Correct 0.480 0 .394 0 .558
+VQAv2- Incorrect 0.481 0 .403 0 .549
+Table 1: CLIPScore, UMIC, and PAC-S comparison for
+caption-like sentences for incorrect and correct answers
+generated by ALBEF model for VQAv2 dataset.
+Answer Type CLIPScore UMIC PAC-S
+Correct yes/no 0.457 0 .355 0 .540
+Incorrect yes/no 0.470 0 .392 0 .547
+Correct numbers 0.468 0 .354 0.561
+Incorrect numbers 0.477 0 .387 0 .553
+Correct others 0.512 0 .452 0 .578
+Incorrect others 0.485 0 .411 0 .548
+Table 2: CLIPScore, UMIC, and PAC-S comparison for
+correct and incorrect caption-like sentences generated
+with different answer types from VQAv2 dataset.
+limitations of these metrics in precisely assessing
+caption quality.
+Score normalization: The UMIC final score,
+which is an output of a sigmoid function, has a
+value range between 0 and 1. On the other hand,
+the CLIPScore and PAC-S use the cosine similarity
+score scaled by a factor of 2.5 and 2, respectively.
+Although theoretically, CLIPScore can vary be-
+tween -2.5 and 2.5, and PAC-S can vary between
+-2 and 2, we have not observed negative scores,
+and they rarely exceed 1.0. The distributions of
+metrics are illustrated in Figure 3. While we do
+not directly compare the values of these metrics
+in this paper, we aim to contrast their sensitivity
+to different factors. To achieve this, we apply the
+min-max normalization separately to each metric
+for every experiment. This method allows us to
+evaluate the respective sensitivities of the metrics
+effectively. Please note that all reported scores are
+normalized, but the histograms are plotted using the
+original scores to accurately represent the original
+distributions.
+Score normalized results: As shown in Table 1,
+CLIPScore and UMIC assign higher average scores
+to incorrect captions compared to correct captions;
+however, PAC-S assigns higher average scores to
+correct captions. We conducted further analysis
+by examining the average scores assigned by these
+metrics for different answer types of the VQAv2
+dataset (please refer to Table 2 for detailed scores).
+Specifically, we observed that for the 'yes/no' an-
+swer type, on average, all the metrics assign higher
+scores to incorrect captions. For the 'number' an-
+Fig. a: CLIPScore Fig. b: UMIC Fig. c: PAC-S
+Figure 3: Histograms of CLIPScore (Fig. a), UMIC (Fig. b), and PAC-S (Fig. c) for correct and incorrect
+caption-like sentences created using correct and incorrect answers from ALBEF for VQAv2 questions.
+Question CLIPScore CLIPScore UMIC UMIC PAC-S PAC-S
+Type Incorrect Correct Incorrect Correct Incorrect Correct
+how many 0.475 0 .468 0 .372 0 .354 0 .559 0 .562
+what color 0.454 0 .466 0 .420 0 .517 0 .514 0 .542
+what sport 0.480 0 .584 0 .299 0 .342 0 .513 0 .628
+what animal 0.436 0 .544 0 .257 0 .322 0 .488 0 .623
+what time 0.469 0 .405 0 .333 0 .282 0 .528 0 .492
+what brand 0.440 0 .458 0 .481 0 .511 0 .497 0 .508
+what type/kind 0.485 0 .537 0 .382 0 .417 0 .544 0 .594
+where 0.501 0 .551 0 .380 0 .435 0 .561 0 .620
+which 0.495 0 .529 0 .419 0 .414 0 .556 0 .581
+what is/are the 0.497 0 .543 0 .436 0 .468 0 .559 0 .605
+others 0.480 0 .471 0 .412 0 .370 0 .549 0 .550
+Table 3: CLIPScore, UMIC, and PAC-S for correct and incorrect caption-like sentences generated for different
+question types of VQAv2.
+swer type, only PAC-S was able to assign higher
+average scores to correct captions. However, for the
+'others' answer type, all the metrics assign higher
+average scores to correct captions.
+For further investigation, we look at results for
+specific question types for VQAv2. As illustrated
+in Table 3), for CLIPScore, we observe that in-
+correct captions received higher scores on average
+for three question types: 'how many', 'what time'
+and 'others'. Also, UMIC assigns higher scores
+on average to incorrect captions for four question
+types: 'how many', 'what time', 'which', and 'oth-
+ers'. On the other hand, PAC-S assigns higher
+scores on average to incorrect captions for 'what
+time' and 'others' question types, suggesting all
+metrics show poor performance for 'what time'
+questions, which is considered to be a hard ques-
+tion type. Moreover, CLIPScore and UMIC show
+poor performance for 'how many' questions. Al-
+though PAC-S assigns higher average to correct
+captions over incorrect captions for 'how many'
+question type, the gap between the absolute values
+of average scores for correct and incorrect captions
+for 'how many' question is less than that for other
+question types.
+Controlled investigation to identify sensitiv-
+ity to various factors: Having established that
+these metrics struggle to distinguish the set of in-
+correct captions from the set of correct captions,
+in the following sections, we delve deeper into un-
+derstanding the underlying reasons for their failure.
+To validate the comparisons made between differ-
+ent group means and ensure the reliability of our
+claims, we conducted a t-test for each comparison,
+using a p-value threshold of 0.01 (p-value < 0.01).
+Notably, all reported comparisons successfully sat-
+isfied this predetermined threshold, affirming the
+robustness of our statistical analyses.
+4.1 Sensitivity to fine-grained errors
+The primary objective of this section is to deter-
+mine the sensitivity of these metrics to fine-grained
+Answer Type CLIPScore UMIC PAC-S
+Ground Truth 0.479 0 .422 0 .542
+Incorrect from ALBEF 0.468 0 .404 0 .535
+Table 4: CLIPScore, UMIC, and PAC-S comparison for
+caption-like sentences for incorrect answers generated
+by ALBEF model for VQAv2 and captions generated
+with its ground truth counterpart.
+errors. An incorrect caption is said to have "fine-
+grained errors" if it has high lexical overlap with
+a correct caption. To obtain such pairs of correct
+and incorrect captions, we first generate incorrect
+captions corresponding to the questions for which
+ALBEF produced incorrect responses. Then, we
+generate correct captions using ground-truth an-
+swers for the same set of questions. We convert
+the questions and answers into captions using the
+method described in Section 3. We excluded ques-
+tions with yes/no answers from this study as we
+discuss them in Section 4.4. In total, we analyzed
+38383 samples for this experiment.
+We quantify the degree of lexical overlap be-
+tween a pair of correct and incorrect captions in
+our dataset by measuring the F1 score between
+them. The mean F1 score across all such pairs
+in our dataset is 0.725. To place this in context,
+we measure the F1 score between pairs of correct
+(human-written) and incorrect (generated by image
+captioning models) captions from the Composite
+dataset (Aditya et al., 2017), a widely-used dataset
+for evaluating image captioning metrics (see Ap-
+pendix A.3 for more details on F1 score computa-
+tion for Composite dataset). The mean F1 score
+across all such pairs from the Composite dataset is
+0.224, which is significantly lower than that for our
+dataset. This highlights the difficulty of our dataset
+making it suitable for stress testing the robustness
+of image captioning metrics.
+As demonstrated in Table 4, for all metrics,
+captions with ground truth answers received a
+higher average score compared to captions with
+fine-grained errors. Despite the higher average
+scores assigned to correct captions, the ranking re-
+sults reveal that these metrics often fail to prioritize
+correct captions over incorrect ones. CLIPScore
+fails to rank correct captions above incorrect cap-
+tions in 46.34% of cases, while UMIC fails to do
+so in 45.99% of cases. Also, PAC-S ranks incor-
+rect captions over correct captions in 46.84% of
+times. Thus, all metrics show weak sensitivity to
+detecting fine-grained errors.
+We also report a human baseline for the task
+of distinguishing correct captions from the ones
+with fine-grained errors. We collected five human
+annotations for 2000 examples using the Amazon
+Mechanical Turk platform, each example consist-
+ing of an image, a correct caption and an incorrect
+caption. We asked humans to indicate the best
+matching description. Majority voting across the
+worker responses for each caption revealed humans
+fail to identify correct caption from incorrect cap-
+tion in 15.4% cases. This shows human perfor-
+mance is far better than the metrics' performance
+which fail to rank correct captions above incorrect
+captions around 46% of the time.
+4.2 Are metrics differently sensitive to
+different kinds of fine-grained errors?
+Figure 4: Captions from ground truth, plausible an-
+swer, an object from the image and a random asnwer of
+VQAv2.
+The main aim of this experiment is to assess if
+the metrics exhibit varying sensitivity to different
+types of fine-grained errors, in particular visual
+grounding errors and caption implausibility errors.
+To assess this, we generated three types of incor-
+rect captions for each correct caption by replacing
+the ground-truth answer in the correct caption with:
+a plausible but incorrect answer (visual ground-
+ing error), an object found in the image (caption
+implausibility error), and a random answer (see
+Figure 4 for an example and see Appendix A.4 for
+more details on plausible answers).
+For this experiment, we limited our investigation
+to the following question types: 'what number is',
+'what time', 'what color', and 'what brand', as their
+answers are non-object entities and, therefore, are
+not present in the COCO Detection dataset. Thus,
+when constructing a sentence using an object in
+the image, we can be sure that it would result in
+an incorrect caption for the image. We analyzed
+23841 sets of 4 captions each for this experiment.
+Answer Type CLIPScore UMIC PAC-S
+Ground Truth 0.501 0 .487 0 .576
+Plausible 0.474 0 .242 0 .527
+Object from Image 0.526 0 .354 0 .601
+Random 0.458 0 .275 0 .522
+Table 5: CLIPScore, UMIC, and PAC-S comparison
+for caption-like sentences from VQAv2 ground truth,
+plausible, object from image and random answers.
+As illustrated in Table 5, the score difference be-
+tween the correct captions and the captions with im-
+plausibility errors is significantly smaller than the
+difference between the correct captions and the cap-
+tions with visual grounding errors. This indicates
+that the metrics exhibit lower sensitivity to caption
+implausibility errors and higher sensitivity to vi-
+sual grounding errors. Notably, both CLIPScore
+and PAC-S assigned higher average scores to cap-
+tions with implausibility errors compared to ground
+truth answers, and only UMIC assigned higher av-
+erage score to captions with ground truth answers.
+In the following sections, we further examine the
+sensitivity of the metrics to various visual and lin-
+guistic aspects.
+4.3 Visual Aspects
+In this section, our objective is to assess the sen-
+sitivity of the metrics to the size and number of
+objects mentioned in the caption. Importantly, we
+would like to highlight that our focus is on analyz-
+ing how the size and number of objects mentioned
+in captions affect metric robustness and sensitiv-
+ity. We refrain from making value judgments about
+whether these effects are good or bad.
+4.3.1 Sensitivity to the number of object
+mentions in the caption
+In this section, we aim to evaluate the sensitivity
+of the metrics to the number of objects mentioned
+in the caption. To conduct this evaluation, we filter
+images from COCO Detection dataset (Lin et al.,
+2014) having a minimum of three object tags and
+randomly select three object tags for each image
+and utilize their corresponding object names to
+form sentences, depicting one, two, and three ob-
+jects presented in the image (see Figure 5). We
+analyzed 19412 images for this experiment.
+As presented in the first three rows of Table 6,
+CLIPScore and PAC-S scores for captions with
+three objects are significantly higher than for cap-
+tions with two objects. Also, captions with two ob-
+Number of Objects CLIPScore UMIC PAC-S
+One Object 0.449 0 .205 0 .500
+Two Objects 0.512 0 .212 0 .540
+Three Objects 0.561 0 .195 0 .578
+Shuffled One Object 0.445 0 .139 0 .503
+Shuffled Two Objects 0.499 0 .148 0 .541
+Shuffled Three Objects 0.540 0 .169 0 .576
+Table 6: CLIPScore, UMIC, and PAC-S comparison
+for sentences with various number of objects name, and
+their shuffled counterparts.
+Figure 5: Captions referring to different number of
+objects from the image.
+jects score significantly higher than those with one
+object. In contrast, for UMIC, captions with one,
+two, and three objects received average scores of
+0.205, 0.212, and 0.195, respectively. Although the
+t-test indicated statistically significant differences
+between scores across different object counts, the
+gap between absolute score values is smaller for
+UMIC than for CLIPScore and PAC-S. In conclu-
+sion, CLIPScore and PAC-S display a height-
+ened sensitivity to the number of image-relevant
+objects mentioned in the caption, while UMIC
+shows limited sensitivity towards this factor.
+4.3.2 Sensitivity to size of objects mentioned
+in the caption
+In this experiment, our primary goal is to examine
+the effect of object size mentioned in captions on
+the metrics. To achieve this, we utilize the COCO
+Detection dataset (Lin et al., 2014) to select one
+Candidate Captions CLIPSore UMIC PAC-S
+Small Object: There is a
+knife. 0.460 0.507 0.561
+Big Object: There is a pizza. 0.632 0.469 0.718
+Shuffled Small Object: A
+there knife is. 0.480 0.268 0.561
+Shuffled Big Object: A
+there pizza is. 0.664 0.250 0.719
+Figure 6: Captions referring to small and large area of
+the image and their shuffled counterparts.
+Object Size CLIPScore UMIC PAC-S
+Small Object 0.396 0 .317 0 .492
+Big Object 0.434 0 .232 0 .580
+Shuffled Small Object 0.390 0 .205 0 .495
+Shuffled Big Object 0.436 0 .170 0 .590
+Table 7: CLIPScore, UMIC, and PAC-S comparison
+for captions referring to small and a big objects in the
+image, and their shuffled counterparts.
+small and one large object from the same image
+with a noticeable difference in the area (see Figure
+6 for an example and for detailed explanation see
+Appendix A.5.). As a result, we selected 24610
+images for further analysis.
+As demonstrated in the first two rows of Table,
+7, for CLIPScore and PAC-S, captions with smaller
+objects received a lower average score than those
+with bigger objects. On the other hand, UMIC
+assigned a higher average score to captions with
+smaller objects compared to captions with bigger
+objects. Overall, all metrics demonstrate sensi-
+tivity to the size of image-relevant objects men-
+tioned in the caption.
+4.4 Linguistic Aspects
+4.4.1 Sensitivity to negation
+To assess the ability of metrics to distinguish be-
+tween correct captions and their negated versions,
+we created 80530 captions-like sentences by us-
+ing the questions with 'yes' or 'no' ground-truth
+answers from the validation split of VQAv2. Addi-
+tionally, we generated negated captions by negating
+the ground truth answer.
+For CLIPScore, correct captions received a
+higher score of 0.457, and their negated versions
+got 0.450 on average. For UMIC, correct cap-
+tions received a higher average of 0.359, and their
+negated versions got 0.335 on average. Correct
+captions received a higher average of 0.556 for
+PAC-S, and their negated versions got 0.548 on
+average. Although the correct captions scored sta-
+tistically significantly higher than the negated ones,
+CLIPScore, UMIC, and PAC-S ranked the negated
+caption above the correct caption incorrectly in
+41.36%, 44.24%, and 41.83% of cases, respectively.
+Thus, all metrics exhibit a weak understanding
+of negation.
+4.4.2 Sensitivity to the sentence structure
+To evaluate the sensitivity of the metrics to sentence
+structure, we generated 214354 caption-like sen-
+tences with VQAv2 ground truth answers and then
+shuffled them. For CLIPScore, correct captions re-
+ceived 0.469, and their shuffled version got 0.450
+on average. For UMIC, correct captions received
+0.400, and their shuffled version got 0.211 on av-
+erage. Correct captions received 0.548 for PAC-S,
+and their shuffled version got 0.539 on average.
+Despite higher average scores assigned to correct
+captions, the ranking results reveal that CLIPScore
+fails to rank the correct caption higher than the
+shuffled one in 34.32% of cases, contrasting with
+UMIC, where this occurs in only 9.18% of cases.
+Additionally, PAC-S falls short, assigning a higher
+score to the correct caption than the shuffled one
+in 43.05% of cases. This indicates that UMIC is
+more responsive to the structure of the sentence
+compared to CLIPScore and PAC-S.
+4.5 Visio-Linguistic Aspects
+4.5.1 Sentence Structure versus Visual
+Aspects
+In order to compare the sensitivity of metrics to
+sentence structure and object size, we conducted a
+sentence shuffling experiment using captions that
+contained objects of varying sizes, as described in
+Section 4.3. We shuffle both big and small object
+captions in the same order (see Figure 6). As shown
+in Table 7, our results demonstrate that CLIPScore
+and PAC-S assign the highest scores to captions
+referring to a larger area of the image, regardless of
+whether they are shuffled or not. In contrast, UMIC
+exhibits the opposite trend, with the highest scores
+assigned to correct (i.e., unshuffled) sentences, re-
+gardless of the size of the objects mentioned in the
+captions. This highlights that UMIC is more sen-
+sitive to sentence structure than the size of the
+objects mentioned in the caption, whereas for
+CLIPScore and PAC-S, the behavior is just the
+opposite.
+To compare the sensitivity of metrics to sentence
+structure and the number of object mentions, we
+conducted a sentence shuffling experiment using
+captions that varied in the number of object men-
+tions. As shown in Table 6, UMIC assigns the
+lowest scores to shuffled captions, regardless of
+the number of objects mentioned in the captions.
+This indicates that UMIC prioritizes sentence
+structure over the number of object mentions .
+In contrast, CLIPScore and PAC-S assign the high-
+est scores to captions with three objects, regardless
+of whether they are shuffled or not. Similarly, the
+captions with two objects have the second highest
+CLIPScore and PAC-S, regardless of the correct-
+ness of the sentence structure. This reveals that
+CLIPScore and PAC-S places greater impor-
+tance on the number of object mentions than
+the sentence structure.
+5 Conclusion and Discussion
+In conclusion, recently proposed reference-free im-
+age captioning evaluation metrics are far from per-
+fect; they cannot distinguish an incorrect caption
+from a correct caption when the difference between
+them is fine-grained. The sensitivity of CLIPScore,
+UMIC, and PAC-S varies across different error
+types: they are less affected by plausibility errors
+yet more by visual grounding errors. All metrics
+struggle with understanding negation. All metrics
+are influenced by the size of the relevant objects
+mentioned in the caption, and CLIPScore and PAC-
+S also responds to the number of object mentions.
+UMIC is responsive to sentence structure, while
+CLIPScore and PAC-S disregards it often. More-
+over, UMIC prioritizes sentence structure over the
+number and size of objects mentioned in the cap-
+tion; in contrast CLIPScore and PAC-S prioritize
+the object size and number of object mentions over
+sentence structure.
+Our primary contribution is highlighting specific
+areas where reference-free metrics exhibit limita-
+tions. The root cause of these limitations is traced
+to the insufficient fine-grained understanding of
+the CLIP and UNITER models upon which these
+reference-free metrics rely. In order to improve
+the reference-free metrics, we believe that underly-
+ing models need to become better at fine-grained
+understanding of objects, attributes, relationships
+etc., so that they can better distinguish fine-grained
+differences between captions. Promising avenues
+for enhancing this understanding include explor-
+ing object-centric representations (Locatello et al.,
+2020; Greff et al., 2019; Burgess et al., 2019) and
+incorporating training with hard negatives (Yuksek-
+gonul et al., 2023; Zhang et al., 2023; Bugliarello
+et al., 2023), allowing the model to learn to dis-
+cern fine-grained differences and errors. Given the
+restricted fine-grained understanding of the under-
+lying models shaping these metrics, caution is ad-
+vised when employing them as evaluation metrics
+for image captioning.
+Limitations
+As a limitation, it is important to consider that re-
+sponses marked as incorrect may not always be
+incorrect due to the stringent nature of VQA evalu-
+ation metrics (Agrawal et al., 2023). Our approach
+does not account for this factor. However, for our
+experiments, since we fine-tune ALBEF for each
+domain, the risk of this issue is low. To get a quan-
+titative sense, we randomly sampled 100 incorrect
+answers (as deemed by the VQA automatic met-
+ric) generated by ALBEF for VQAv2, and in only
+10% of cases, the answer was actually correct (as
+deemed by an expert human). Furthermore, it is
+important to note that we do not account for the
+saliency of objects mentioned in the caption, which
+could be a confounding factor in our evaluation.
+Ethics Statement
+To enhance transparency and explainability, we
+conducted experiments aimed at shedding light on
+the evaluation process of the metric. By doing so,
+we aimed to provide insights and explanations that
+enable users to better comprehend and trust the
+metric's evaluations. Furthermore, we evaluated
+the robustness of the metrics, contributing towards
+the development of less biased evaluation metrics.
+While we assess various aspects of existing met-
+rics, it is important to note that our evaluation does
+not specifically examine metrics' potential biases
+across different demographics, including gender
+or race. While our research does not include an
+explicit experiment on bias perpetuation or ampli-
+fication, we strongly encourage future studies to
+investigate how metrics may interact with biases
+present in datasets. This research direction is cru-
+cial in developing metrics that are less biased and
+more inclusive towards diverse demographics.
+Acknowledgements
+We express our gratitude to Stefan Lee for provid-
+ing constructive feedback. The technical support
+extended by the Mila IDT team in managing the
+computational infrastructure is greatly appreciated.
+The authors acknowledge the material support of
+NVIDIA in the form of computational resources.
+Throughout this project, Aishwarya Agrawal re-
+ceived support from the Canada CIFAR AI Chair
+award.
+References
+Somak Aditya, Yezhou Yang, Chitta Baral, Yiannis
+Aloimonos, and Cornelia Fermüller. 2017. Image
+understanding using vision and reasoning through
+scene description graph. Computer Vision and Image
+Understanding, 173.
+Aishwarya Agrawal, Ivana Kajic, Emanuele Bugliarello,
+Elnaz Davoodi, Anita Gergely, Phil Blunsom, and
+Aida Nematzadeh. 2023. Reassessing evaluation
+practices in visual question answering: A case study
+on out-of-distribution generalization. In Findings
+of the Association for Computational Linguistics:
+EACL 2023, pages 1201-1226, Dubrovnik, Croatia.
+Association for Computational Linguistics.
+Stanislaw Antol, Aishwarya Agrawal, Jiasen Lu, Mar-
+garet Mitchell, Dhruv Batra, C. Lawrence Zitnick,
+and Devi Parikh. 2015. VQA: Visual Question An-
+swering. In International Conference on Computer
+Vision (ICCV).
+Satanjeev Banerjee and Alon Lavie. 2005. METEOR:
+An automatic metric for MT evaluation with im-
+proved correlation with human judgments. In Pro-
+ceedings of the ACL Workshop on Intrinsic and Ex-
+trinsic Evaluation Measures for Machine Transla-
+tion and/or Summarization, pages 65-72, Ann Arbor,
+Michigan. Association for Computational Linguis-
+tics.
+Emanuele Bugliarello, Aida Nematzadeh, and
+Lisa Anne Hendricks. 2023. Weakly-supervised
+learning of visual relations in multimodal pretraining.
+Christopher P. Burgess, Loïc Matthey, Nicholas Watters,
+Rishabh Kabra, Irina Higgins, Matthew M. Botvinick,
+and Alexander Lerchner. 2019. Monet: Unsuper-
+vised scene decomposition and representation. ArXiv,
+abs/1901.11390.
+Xinlei Chen, Hao Fang, Tsung-Yi Lin, Ramakr-
+ishna Vedantam, Saurabh Gupta, Piotr Dollár, and
+C Lawrence Zitnick. 2015. Microsoft coco captions:
+Data collection and evaluation server. arXiv preprint
+arXiv:1504.00325.
+Yen-Chun Chen, Linjie Li, Licheng Yu, Ahmed
+El Kholy, Faisal Ahmed, Zhe Gan, Yu Cheng, and
+Jingjing Liu. 2020. Uniter: Universal image-text rep-
+resentation learning. In Computer Vision - ECCV
+2020, pages 104-120, Cham. Springer International
+Publishing.
+Anuj Diwan, Layne Berry, Eunsol Choi, David Harwath,
+and Kyle Mahowald. 2022. Why is winoground
+hard? investigating failures in visuolinguistic compo-
+sitionality. In Proceedings of the 2022 Conference on
+Empirical Methods in Natural Language Processing,
+pages 2236-2250, Abu Dhabi, United Arab Emirates.
+Association for Computational Linguistics.
+Joshua Feinglass and Yezhou Yang. 2021. Smurf: Se-
+mantic and linguistic understanding fusion for cap-
+tion evaluation via typicality analysis. In Proceed-
+ings of the 58th Annual Meeting of the Association
+for Computational Linguistics.
+Yash Goyal, Tejas Khot, Douglas Summers-Stay, Dhruv
+Batra, and Devi Parikh. 2016. Making the v in vqa
+matter: Elevating the role of image understanding in
+visual question answering. International Journal of
+Computer Vision, 127:398-414.
+Klaus Greff, Raphaël Lopez Kaufman, Rishabh Kabra,
+Nick Watters, Christopher Burgess, Daniel Zoran,
+Loic Matthey, Matthew Botvinick, and Alexander
+Lerchner. 2019. Multi-object representation learning
+with iterative variational inference. In Proceedings of
+the 36th International Conference on Machine Learn-
+ing, volume 97 of Proceedings of Machine Learning
+Research, pages 2424-2433. PMLR.
+Jack Hessel, Ari Holtzman, Maxwell Forbes, Ronan
+Le Bras, and Yejin Choi. 2021. CLIPScore: A
+reference-free evaluation metric for image captioning.
+In Proceedings of the 2021 Conference on Empiri-
+cal Methods in Natural Language Processing, pages
+7514-7528, Online and Punta Cana, Dominican Re-
+public. Association for Computational Linguistics.
+Cheng-Yu Hsieh, Jieyu Zhang, Zixian Ma, Aniruddha
+Kembhavi, and Ranjay Krishna. 2023. Sugarcrepe:
+Fixing hackable benchmarks for vision-language
+compositionality. arXiv preprint arXiv:2306.14610.
+Anwen Hu, Shizhe Chen, Liang Zhang, and Qin
+Jin. 2023. Infometic: An informative metric for
+reference-free image caption evaluation.
+Andrej Karpathy and Fei-Fei Li. 2015. Deep visual-
+semantic alignments for generating image descrip-
+tions. In CVPR, pages 3128-3137. IEEE Computer
+Society.
+Hwanhee Lee, Seunghyun Yoon, Franck Dernoncourt,
+Trung Bui, and Kyomin Jung. 2021. UMIC: An
+unreferenced metric for image captioning via con-
+trastive learning. In Proceedings of the 59th An-
+nual Meeting of the Association for Computational
+Linguistics and the 11th International Joint Confer-
+ence on Natural Language Processing (Volume 2:
+Short Papers), pages 220-226, Online. Association
+for Computational Linguistics.
+Junnan Li, Ramprasaath R. Selvaraju, Akhilesh Deepak
+Gotmare, Shafiq Joty, Caiming Xiong, and Steven
+Hoi. 2021. Align before fuse: Vision and language
+representation learning with momentum distillation.
+In Advances in Neural Information Processing Sys-
+tems.
+Chin-Yew Lin. 2004. ROUGE: A package for auto-
+matic evaluation of summaries. In Text Summariza-
+tion Branches Out, pages 74-81, Barcelona, Spain.
+Association for Computational Linguistics.
+Tsung-Yi Lin, Michael Maire, Serge Belongie, James
+Hays, Pietro Perona, Deva Ramanan, Piotr Dollár,
+and C. Lawrence Zitnick. 2014. Microsoft coco:
+Common objects in context. In Computer Vision -
+ECCV 2014, pages 740-755, Cham. Springer Inter-
+national Publishing.
+Francesco Locatello, Dirk Weissenborn, Thomas Un-
+terthiner, Aravindh Mahendran, Georg Heigold,
+Jakob Uszkoreit, Alexey Dosovitskiy, and Thomas
+Kipf. 2020. Object-centric learning with slot atten-
+tion. In Advances in Neural Information Processing
+Systems, volume 33, pages 11525-11538. Curran As-
+sociates, Inc.
+Zixian Ma, Jerry Hong, Mustafa Omer Gul, Mona
+Gandhi, Irena Gao, and Ranjay Krishna. 2023. Crepe:
+Can vision-language foundation models reason com-
+positionally?
+Kishore Papineni, Salim Roukos, Todd Ward, and Wei-
+Jing Zhu. 2002. Bleu: a method for automatic evalu-
+ation of machine translation. In Proceedings of the
+40th Annual Meeting of the Association for Compu-
+tational Linguistics, pages 311-318, Philadelphia,
+Pennsylvania, USA. Association for Computational
+Linguistics.
+Letitia Parcalabescu, Michele Cafagna, Lilitta Murad-
+jan, Anette Frank, Iacer Calixto, and Albert Gatt.
+2022. V ALSE: A task-independent benchmark for
+vision and language models centered on linguistic
+phenomena. In Proceedings of the 60th Annual Meet-
+ing of the Association for Computational Linguistics
+(Volume 1: Long Papers), pages 8253-8280, Dublin,
+Ireland. Association for Computational Linguistics.
+Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya
+Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sas-
+try, Amanda Askell, Pamela Mishkin, Jack Clark,
+Gretchen Krueger, and Ilya Sutskever. 2021. Learn-
+ing transferable visual models from natural language
+supervision.
+Sara Sarto, Manuele Barraco, Marcella Cornia, Lorenzo
+Baraldi, and Rita Cucchiara. 2023. Positive-
+Augmented Contrastive Learning for Image and
+Video Captioning Evaluation. In Proceedings of the
+IEEE/CVF Conference on Computer Vision and Pat-
+tern Recognition.
+Ravi Shekhar, Sandro Pezzelle, Yauhen Klimovich, Au-
+relie Herbelot, Moin Nabi, Enver Sangineto, and Raf-
+faella Bernardi. 2017. "foil it! find one mismatch
+between image and language caption". In Proceed-
+ings of the 55th Annual Meeting of the Association for
+Computational Linguistics (ACL) (Volume 1: Long
+Papers), pages 255-265.
+Tristan Thrush, Ryan Jiang, Max Bartolo, Amanpreet
+Singh, Adina Williams, Douwe Kiela, and Candace
+Ross. 2022. Winoground: Probing vision and lan-
+guage models for visio-linguistic compositionality.
+In Proceedings of the IEEE/CVF Conference on Com-
+puter Vision and Pattern Recognition (CVPR), pages
+5238-5248.
+Ramakrishna Vedantam, C. Lawrence Zitnick, and Devi
+Parikh. 2014. Cider: Consensus-based image descrip-
+tion evaluation. 2015 IEEE Conference on Computer
+Vision and Pattern Recognition (CVPR), pages 4566-
+4575.
+Ben Wang and Aran Komatsuzaki. 2021. GPT-J-
+6B: A 6 Billion Parameter Autoregressive Lan-
+guage Model. https://github.com/kingoflolz/
+mesh-transformer-jax.
+Yutaro Yamada, Yingtian Tang, and Ilker Yildirim. 2022.
+When are lemons purple? the concept association
+bias of clip.
+Mert Yuksekgonul, Federico Bianchi, Pratyusha Kalluri,
+Dan Jurafsky, and James Zou. 2023. When and why
+vision-language models behave like bags-of-words,
+and what to do about it? In The Eleventh Interna-
+tional Conference on Learning Representations.
+Le Zhang, Rabiul Awal, and Aishwarya Agrawal.
+2023. Contrasting intra-modal and ranking cross-
+modal hard negatives to enhance visio-linguistic fine-
+grained understanding.
+Tiancheng Zhao, Tianqi Zhang, Mingwei Zhu, Haozhan
+Shen, Kyusong Lee, Xiaopeng Lu, and Jianwei Yin.
+2022. An explainable toolbox for evaluating pre-
+trained vision-language models. In Proceedings of
+the 2022 Conference on Empirical Methods in Nat-
+ural Language Processing: System Demonstrations,
+pages 30-37, Abu Dhabi, UAE. Association for Com-
+putational Linguistics.
+A Appendix
+A.1 Generating Caption-like Sentences
+To generate caption-like sentences from each ques-
+tion and answer pair of VQA datasets, we utilize
+pretrained GPT-J (Wang and Komatsuzaki, 2021)
+in a few-shot manner. To accomplish this, we first
+constructed a support examples dataset using the
+VQAv2 (Goyal et al., 2016) training split. For each
+of the sixty-four predefined question types in the
+VQAv2 dataset, we randomly selected four exam-
+ples from the VQAv2 training split. Then, we trans-
+formed both the questions and answers into single
+sentences, which we wrote ourselves. When gener-
+ating captions for VQAv2 validation split, we first
+match the question type to one of the predefined
+sixty-four question types. Then, we select four sup-
+port examples associated with that question type
+and prompt GPT-J to generate a transformed sen-
+tence. If the question type does not match any of
+our predefined question types, we randomly select
+eight support examples from the entire pool of sup-
+port examples. Please see Figure 2 and note that
+we visualized a 2-shot prompt for simplification.
+A.2 Comparison with FOIL, Winoground and
+ARO
+• FOIL: The distinction between our dataset
+and the FOIL dataset lies in their respective
+approaches to altering captions. While FOIL
+primarily focuses on changing nouns in MS-
+COCO captions, encompassing 73 out of the
+91 MS-COCO categories, our setup, utiliz-
+ing the VQA dataset, allows for a more di-
+verse analysis. In our study, we go beyond
+changing nouns and explore variations in cap-
+tions related to colors, time, count, and more.
+Notably, even in terms of nouns, our dataset
+exhibits greater diversity as we are not con-
+strained to object types present in MS-COCO
+annotated categories.
+• ARO: ARO dataset incorporates tests focusing
+on attribution, relations, and order. In the at-
+tribution test, distinctions are drawn between
+phrases like "The paved road and the white
+house." and "The white road and the paved
+house.". Meanwhile, the relation test explores
+understanding relationships, as seen in exam-
+ples like "The horse is eating the grass." and
+the contrasting, implausible statement "The
+grass is eating the horse.". As shown by
+(Hsieh et al., 2023), the hard-negative cap-
+tions present in these benchmarks are eas-
+ily identifiable by vision-language models as
+they are out-of-distribution (OOD) w.r.t the
+training data seen by the language encoder in
+these models. While our correct and incorrect
+pairs of captions are both plausible sentences
+where only the incorrect caption exhibits a
+fine-grained error that stems from a lack of
+precise visual grounding.
+• Winoground: Winoground dataset is meticu-
+lously curated by humans specifically for test-
+ing visio-linguistic compositionality. While it
+maintains a high level of quality, it comprises
+only 1600 samples, which, regrettably, is in-
+sufficient for robust statistical analyses. Fur-
+thermore, it lacks detailed annotations for as-
+pects such as color, time, and counting in com-
+parison to VQAv2. Importantly, as indicated
+by (Diwan et al., 2022), this dataset introduces
+challenges that go beyond fine-grained under-
+standing, including issues like out-of-domain
+challenges and ambiguous captions. These
+challenges significantly confound the study's
+results.
+A.3 F1 score computation for the Composite
+Dataset
+We calculated the F1 score between the human-
+written correct captions and model-generated in-
+correct captions in the Composite dataset (Aditya
+et al., 2017). We used the captions generated by the
+Karparthy model (Karpathy and Li, 2015) as they
+were better in quality. In the Composite dataset,
+each model-generated caption has an associated
+correctness score (provided by humans) ranging
+from 1 ('The description has no relevance to the
+image') to 5 ('The description relates perfectly to
+the image'). For our F1 score computation, we con-
+sidered all captions with score less than or equal to
+4 as incorrect captions.
+A.4 Plausible Answers
+To generate plausible captions for each question
+type, we first compiled a list of plausible answers
+derived from the ground truth multiple-choice an-
+swer of the same question type in the validation
+split of VQAv2. Subsequently, an answer was ran-
+domly selected from this list of plausible answers.
+This chosen answer was used to replace the ground
+truth answer in the original caption, thus generating
+a plausible alternate caption.
+A.5 Picking a large and small object from the
+image
+In this experiment, our primary objective is to inves-
+tigate how the object size mentioned in captions af-
+fects the scores assigned by CLIPScore and UMIC.
+To select small and large objects that are distinctly
+different in size, we could sort the objects by their
+associated area in the COCO Detection dataset.
+However, this approach may not always yield accu-
+rate results because multiple objects with the same
+name may appear in an image. For instance, if
+there are two cars in an image, one smaller but fur-
+ther away and the other larger but closer, sorting
+by area would lead to incorrect identification of the
+smallest and largest objects. This would result in
+identical captions for both objects, such as "There
+is a car." which is not ideal for comparison.
+To overcome this issue, we added up the area
+of all object categories with the same name and
+sorted the total areas of each object category in the
+image. We then calculated the difference between
+the areas associated with the largest and smallest
+categories. If the difference exceeded our threshold,
+we selected those objects for analysis. As a result,
+we selected 24610 images for further analysis (See
+Figure 6).
+A.6 Computational Resources
+In all experiments detailed in this paper, we em-
+ployed a single NVIDIA Quadro RTX 8000 with
+48 GB GDDR6 GPU Memory. Specifically, for the
+primary task of generating caption-like sentences
+from the VQAv2 dataset, we performed inference
+using the GPT-J model with 6 billion parameters,
+executing the process over a duration of 24 hours.
+A.7 Dataset Terms of Use
+We will distribute our datasets (both generated with
+caption template and QA to caption conversion
+method) under the Creative Commons Attribution
+4.0 License. It is noteworthy to mention that this
+licensing choice aligns with the terms of use gov-
+erning both the COCO and VQAv2 datasets, foun-
+dational to the creation of our datasets.
+A.8 Editorial Assistance
+We would like to disclose that ChatGPT was uti-
+lized for refining the language and structure of this
+academic paper. While the primary content and
+research remain the work of the authors, the as-
+sistance provided by ChatGPT was limited to the
+improvement of writing quality.

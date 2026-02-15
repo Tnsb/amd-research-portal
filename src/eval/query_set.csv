@@ -1,0 +1,24 @@
+query_id,query_text,query_type,expected_behavior
+Q01,What does RAGAS measure for faithfulness?,direct,Describe RAGAS faithfulness metric with citations to RAGAS2023
+Q02,What does BERTScore measure and what are its known failure modes?,direct,Describe BERTScore and limitations with citations to BERTScore2019
+Q03,What is the ARES framework and how does it evaluate RAG systems?,direct,Describe ARES context relevance answer faithfulness answer relevance with citations
+Q04,What is the FactCC benchmark and how does it assess factual consistency?,direct,Describe FactCC QA-based approach with citations to FactCC2020
+Q05,What does SummaC use to detect inconsistencies in summarization?,direct,Describe NLI-based approach with citations to SummaC2021
+Q06,What is the FaithEval benchmark and what contexts does it test?,direct,Describe unanswerable inconsistent counterfactual contexts with citations
+Q07,What is the TRUE benchmark and what does it evaluate?,direct,Describe conditional generation and faithfulness tasks with citations
+Q08,How does NLI-based faithfulness evaluation work?,direct,Describe NLI entailment approach with citations to NLI_Faithfulness2023
+Q09,What are the three quality dimensions RAGAS evaluates?,direct,List faithfulness answer relevance context relevance with citations
+Q10,What does context relevance mean in RAG evaluation?,direct,Define and explain with citations from RAG evaluation papers
+Q11,Compare RAGAS vs ARES on how they measure faithfulness,synthesis,Table or paragraphs comparing both with citations to each
+Q12,Compare BERTScore vs SummaC for faithfulness evaluation,synthesis,Agreement and disagreement on approach with citations
+Q13,Compare NLI-based vs QA-based approaches to factual consistency,synthesis,Contrast FactCC SummaC NLI_Faithfulness with citations
+Q14,Where do RAGAS and the RAG evaluation survey agree on RAG evaluation dimensions?,synthesis,Synthesis of shared dimensions with citations
+Q15,Compare FactCC and FIB benchmarks: what do they measure and how do they differ?,synthesis,Contrast the two benchmarks with citations
+Q16,Compare REALM vs REPLUG on retrieval-augmented generation design,synthesis,Architectural differences with citations
+Q17,Does the corpus contain evidence that RAG systems reduce hallucinations?,edge,Yes with citation or explicit not found
+Q18,Does the corpus support that LLMs hallucinate?,edge,Yes with citation to Hallucination_Survey or similar
+Q19,Does the corpus contain evidence for combining multiple faithfulness metrics?,edge,Describe if found or say corpus does not contain evidence
+Q20,Does the corpus discuss GPT-5 or models after 2024 for faithfulness evaluation?,edge,No or minimal—corpus is pre-2025; say not found if absent
+Q21,Does the corpus contain evidence that retrieval quality affects generation faithfulness?,edge,Yes with citation to REPLUG REALM or RAG papers
+Q22,What failure modes do faithfulness metrics have according to the corpus?,direct,Summarize known failures with citations
+Q23,How does G-Eval evaluate faithfulness in NLG?,direct,Describe LLM-as-judge approach with citations to G-Eval2023

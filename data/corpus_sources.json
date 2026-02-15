@@ -1,0 +1,186 @@
+{
+  "description": "Corpus for Phase 2: Trustworthy RAG Evaluation Methods. 18 sources, all from arXiv (open access).",
+  "acquisition_method": "Semi-automated: scripts/download_corpus.py fetches PDFs from arXiv",
+  "sources": [
+    {
+      "source_id": "RAGAS2023",
+      "arxiv_id": "2309.15217",
+      "title": "RAGAS: Automated Evaluation of Retrieval Augmented Generation",
+      "authors": "Shah et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Reference-free RAG evaluation framework; defines faithfulness, answer relevance, context relevance metrics."
+    },
+    {
+      "source_id": "ARES2023",
+      "arxiv_id": "2311.09476",
+      "title": "ARES: An Automated Evaluation Framework for Retrieval-Augmented Generation Systems",
+      "authors": "Saad-Falcon et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "NAACL 2024",
+      "relevance_note": "Automated RAG evaluation with LM judges; assesses context relevance, answer faithfulness, answer relevance."
+    },
+    {
+      "source_id": "RAG_Eval_Survey2024",
+      "arxiv_id": "2405.07437",
+      "title": "Evaluation of Retrieval-Augmented Generation: A Survey",
+      "authors": "Zhu et al.",
+      "year": 2024,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Survey of RAG evaluation; Auepora framework; metrics for retrieval and generation including faithfulness."
+    },
+    {
+      "source_id": "FaithEval2024",
+      "arxiv_id": "2410.03727",
+      "title": "FaithEval: Can Your Language Model Stay Faithful to Context, Even If 'The Moon is Made of Marshmallows'",
+      "authors": "Li et al.",
+      "year": 2024,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Benchmark for faithfulness across unanswerable, inconsistent, counterfactual contexts; 4.9K problems."
+    },
+    {
+      "source_id": "Hallucination_Survey2023",
+      "arxiv_id": "2311.05232",
+      "title": "A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions",
+      "authors": "Zhang et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Comprehensive survey on hallucination; taxonomy, detection methods, benchmarks; foundational for faithfulness discussion."
+    },
+    {
+      "source_id": "FIB2022",
+      "arxiv_id": "2211.08412",
+      "title": "Evaluating the Factual Consistency of Large Language Models Through News Summarization",
+      "authors": "Laban et al.",
+      "year": 2022,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Factual Inconsistency Benchmark (FIB); evaluates whether LLMs prefer consistent over inconsistent summaries."
+    },
+    {
+      "source_id": "BERTScore2019",
+      "arxiv_id": "1904.09675",
+      "title": "BERTScore: Evaluating Text Generation with BERT",
+      "authors": "Tian et al.",
+      "year": 2019,
+      "source_type": "paper",
+      "venue": "ICLR 2020",
+      "relevance_note": "Semantic similarity metric using BERT; used for faithfulness evaluation; alternative to n-gram metrics."
+    },
+    {
+      "source_id": "SummaC2021",
+      "arxiv_id": "2111.09525",
+      "title": "SummaC: Re-Visiting NLI-based Models for Inconsistency Detection in Summarization",
+      "authors": "Laban et al.",
+      "year": 2021,
+      "source_type": "paper",
+      "venue": "TACL",
+      "relevance_note": "NLI-based faithfulness detection for summarization; textual entailment for hallucination detection."
+    },
+    {
+      "source_id": "FactCC2020",
+      "arxiv_id": "2005.00661",
+      "title": "Evaluating the Factual Consistency of Abstractive Summarization",
+      "authors": "Kryscinski et al.",
+      "year": 2020,
+      "source_type": "paper",
+      "venue": "EMNLP 2020",
+      "relevance_note": "QA-based factual consistency; FactCC benchmark; foundational work on faithfulness evaluation."
+    },
+    {
+      "source_id": "RAG_Survey_LLM2025",
+      "arxiv_id": "2504.14891",
+      "title": "Retrieval Augmented Generation Evaluation in the Era of Large Language Models: A Comprehensive Survey",
+      "authors": "Various",
+      "year": 2025,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Comprehensive RAG evaluation survey in LLM era; traditional and emerging metrics; benchmarks."
+    },
+    {
+      "source_id": "QASemConsistency2024",
+      "arxiv_id": "2410.07473",
+      "title": "Localizing Factual Inconsistencies in Attributable Text Generation",
+      "authors": "Min et al.",
+      "year": 2024,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Fine-grained inconsistency localization; predicate-argument level; QASem formalism."
+    },
+    {
+      "source_id": "TRUE_Benchmark2023",
+      "arxiv_id": "2305.09571",
+      "title": "Benchmarking Large Language Model Capabilities for Conditional Generation",
+      "authors": "Liusie et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "TRUE benchmark; evaluates conditional generation; includes faithfulness tasks."
+    },
+    {
+      "source_id": "NLI_Faithfulness2023",
+      "arxiv_id": "2304.05292",
+      "title": "With a Little Push, NLI Models can Robustly and Efficiently Predict Faithfulness",
+      "authors": "Guerreiro et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "ACL 2023",
+      "relevance_note": "NLI models for faithfulness; data augmentation, entailment/contradiction; strong on TRUE benchmark."
+    },
+    {
+      "source_id": "DALLEval2024",
+      "arxiv_id": "2306.06504",
+      "title": "DALLEval: A Framework for Evaluating Text-to-Image Generation Models",
+      "authors": "Cho et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Multi-dimensional evaluation framework; includes faithfulness dimension; applicable to evaluation design."
+    },
+    {
+      "source_id": "LongForm_Faithfulness2023",
+      "arxiv_id": "2305.14998",
+      "title": "LongForm: Optimizing Instruction Tuning for Long Text Generation with Corpus Extraction",
+      "authors": "Guo et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Long-form generation; touches on faithfulness in instruction following; evaluation considerations."
+    },
+    {
+      "source_id": "REPLUG2023",
+      "arxiv_id": "2301.12652",
+      "title": "REPLUG: Retrieval-Augmented Black-Box Language Models",
+      "authors": "Shi et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "arXiv",
+      "relevance_note": "Retrieval-augmented black-box LMs; retrieval quality impacts generation; evaluation context."
+    },
+    {
+      "source_id": "REALM2020",
+      "arxiv_id": "2002.08909",
+      "title": "REALM: Retrieval-Augmented Language Model Pre-Training",
+      "authors": "Guu et al.",
+      "year": 2020,
+      "source_type": "paper",
+      "venue": "ICML 2020",
+      "relevance_note": "Early RAG; knowledge retriever + generator; establishes retrieval-generation evaluation needs."
+    },
+    {
+      "source_id": "G-Eval2023",
+      "arxiv_id": "2303.16634",
+      "title": "G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment",
+      "authors": "Liu et al.",
+      "year": 2023,
+      "source_type": "paper",
+      "venue": "EMNLP 2023",
+      "relevance_note": "LLM-as-judge for NLG evaluation; includes faithfulness dimension; explores automated evaluation."
+    }
+  ]
+}
