@@ -1,7 +1,7 @@
-# Phase 2 RAG — Makefile
+# Phase 2 RAG + Phase 3 PRP — Makefile
 # One-command run: make query Q="..." (after setup). Full setup: make setup.
 
-.PHONY: install ingest index query dry-run help setup
+.PHONY: install ingest index query dry-run help setup portal
 
 install:
 	pip install -r requirements.txt
@@ -33,6 +33,14 @@ eval:
 eval-dry:
 	python3 -m src.eval.run_eval --dry-run
 
+# Summarize latest eval run
+eval-summary:
+	python3 -m src.eval.summarize
+
+# Phase 3: Personal Research Portal
+portal:
+	streamlit run src/app/main.py
+
 help:
 	@echo "Usage:"
 	@echo "  make setup       - Install + download corpus + ingest + index (one-time)"
@@ -43,3 +51,5 @@ help:
 	@echo "  make query Q='your question'   - Full RAG + log (needs API key)"
 	@echo "  make eval        - Run 23 queries, log to logs/"
 	@echo "  make eval-dry    - Eval dry-run (retrieval only)"
+	@echo "  make eval-summary - Summarize latest eval run"
+	@echo "  make portal      - Launch Phase 3 Personal Research Portal (Streamlit)"

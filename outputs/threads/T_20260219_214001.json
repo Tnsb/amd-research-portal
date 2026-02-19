@@ -1,0 +1,16 @@
+{
+  "thread_id": "T_20260219_214001",
+  "query_id": "Q_8033",
+  "query": "What does RAGAS measure?",
+  "retrieved_chunks": [
+    {
+      "chunk_id": "RAGAS2023_chunk_09",
+      "source_id": "RAGAS2023",
+      "text": "RAGAS measures faithfulness.",
+      "chunk_index": null,
+      "score": null
+    }
+  ],
+  "answer": "RAGAS measures faithfulness (RAGAS2023, RAGAS2023_chunk_09).",
+  "timestamp": "2026-02-19T21:40:01.979689+00:00"
+}

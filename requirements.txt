@@ -1,7 +1,8 @@
-# Phase 2 dependencies (minimum versions; for exact pin run: pip freeze > requirements-frozen.txt)
+# Phase 2 + Phase 3 dependencies (minimum versions; for exact pin run: pip freeze > requirements-frozen.txt)
 python-dotenv>=1.0.0
 requests>=2.28.0
 pypdf>=3.0.0
 sentence-transformers>=2.2.0
 faiss-cpu>=1.7.0
 groq>=0.4.0
+streamlit>=1.28.0
